@@ -1,0 +1,13 @@
+
+/* for the title font, GFS Neohellenic is for everything else */
+@import url('https://fonts.googleapis.com/css2?family=Gideon+Roman&display=swap');
+/* font-family: 'Gideon Roman'; */
+
+body {
+  margin: 0;
+  font-family: 'GFS Neohellenic', 'sans-serif';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: white;
+  color: black;
+}
