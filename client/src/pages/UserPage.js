@@ -17,6 +17,10 @@ import {
 import Navigation from "../components/nav/NavBar";
 
 function UserPage() {
+  const bevel = {
+    borderRadius: "20px",
+    textAlign: "center",
+  };
   const theme = useTheme();
   return (
     <>
@@ -45,7 +49,7 @@ function UserPage() {
               placeholder="Describe yourself..."
               name="about"
               type="text"
-              borderRadius="20px"
+              style={bevel}
             />
           </FormControl>
 
@@ -55,22 +59,23 @@ function UserPage() {
               type="text"
               name="experience"
               placeholder="any interesting facts"
+              style={bevel}
             />
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel>Skills</FormLabel>
-            <input type="text" />
+            <input type="text" style={bevel} />
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel>Education and License</FormLabel>
-            <input type="text" />
+            <input type="text" style={bevel} />
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel>Resume</FormLabel>
-            <input type="text" />
+            <input type="text" style={bevel} />
           </FormControl>
 
           <button>SAVE</button>

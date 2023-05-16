@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Navigation({ homepage, profile, dashboard, logout }) {
   return (
     <>
-      <Box mb="10px">
+      <Box m="0 10px 5px 0">
         <Flex
           mb="5px"
           justifyContent="flex-end
