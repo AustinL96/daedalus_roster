@@ -2,13 +2,10 @@
 
 
 type User{
-    firstName: String
-    lastName: String
+    username: String
     email: String
-
-
-    skills: [String]
-    
+    password: String
+    _id: ID
 
 
 }
@@ -21,26 +18,21 @@ type Listing{
     date: String
     jobDetails: String
     jobDescription: String
-    appliedUser: [File]
-
-
+    appliedUser: [User]
 }
 
-
-scalar Upload
-
-# An Object type that contains the a files property which will store an array of resumes for listing.  
-type Resumes{
-    # ! here mean the array and its elements can't be null.
-    # might need to change this because the initial array will have nothing.
-    files: [Upload!]!
+type Auth{
+    token: ID
+    user: User
 }
 
-type Query{
-    getFiles: MyType
+type Query {
+  hello: String
 }
 
-# this mutation 
 type Mutation{
-    uploadFiles(files: [Upload!]!): MyType
+    createUser(username: String!, email: String!, password: String!, _id: ID): Auth
+    createListing: Listing
 }
+
+

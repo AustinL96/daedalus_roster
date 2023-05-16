@@ -24,7 +24,12 @@ const userSchema = new Schema({
     required: true,
     min: 6
   },
-  appliedTo: []
+  appliedTo: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'listing'
+    }
+  ]
 });
 
 
