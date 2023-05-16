@@ -1,3 +1,6 @@
+
+
+
 type User{
     username: String
     email: String
@@ -11,11 +14,12 @@ type Listing{
     jobName: String
     companyName: String
     location: String
-    price: Int
+    salary: Int
     date: String
     jobDetails: String
     jobDescription: String
     appliedUser: [User]
+    _id: ID
 }
 
 type Auth{
@@ -25,11 +29,16 @@ type Auth{
 
 type Query {
   hello: String
+  getUser(id: ID): User 
+  getListing(id: ID): Listing
+  getListings(): [Listing]
 }
 
 type Mutation{
     createUser(username: String!, email: String!, password: String!, _id: ID): Auth
-    createListing: Listing
+    createListing(jobName: String, companyName: String, location: String, salary: Int, date: String, jobDetails: String, jobDescription: String, appliedUser: [User], _id: ID) 
+    : Auth 
+    
 }
 
 

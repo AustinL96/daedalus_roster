@@ -3,14 +3,23 @@ const Listing = require('../models/Listing');
 
 const resolvers = {
     Query: {
-      getUser: (parent, args, context, info) => {
+      getUser: async (parent, args, context, info) => {
         //blahblah
+        const user = await User.findById(args.id);
+
+        return user;
       },
-      getListing: (parent, args, context, info) => {
+      getListing: async (parent, args, context, info) => {
         // Resolver logic for retrieving a listing
+        const listing = await Listing.findById(args.id);
+
+        return listing;
       },
-      getAllListing: (parent, args, context, info) => {
+      getAllListing: async (parent, args, context, info) => {
         // Resolver logic for retrieving a listing
+        const listings = await Listing.find();
+
+        return listings;
       },
       // Other query resolvers
     },
@@ -26,7 +35,12 @@ const resolvers = {
 
       },
       // Other mutation resolvers
+      deleteListing: async  (parent, args, context, info) => {
+        
+        await Listing.findByIdAndDelete
+      }
     },
     // Other resolvers for custom types or fields
   };
 
+module.export = resolvers;
