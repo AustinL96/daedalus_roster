@@ -24,10 +24,10 @@ const userSchema = new Schema({
     required: true,
     min: 6
   },
-  favorites: [
+  appliedTo: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'drink'
+      ref: 'listing'
     }
   ]
 });
