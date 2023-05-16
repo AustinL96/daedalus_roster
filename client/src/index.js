@@ -2,10 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+// *** Import Custom Themes
 import "@fontsource/gideon-roman";
-import { BrowserRouter } from "react-router-dom";
-
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+// *** Client stuff
+import { BrowserRouter } from "react-router-dom";
+// *** GraphQL imports
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 
 // *** ChakraUI Custom Themes
 const fonts = {
