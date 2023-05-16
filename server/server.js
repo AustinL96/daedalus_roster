@@ -16,12 +16,22 @@ const app = express();
 const httpServer = http.createServer(app);
 
 
-// const api_routes = require('./routes/api_routes');
 const PORT = process.env.PORT || 3333;
 
 app.use(express.json());
 
 app.use(express.static('../client/dist'));
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.PORT ? true : false }
+  }));
+
+
+// const api_routes = require('./routes/api_routes');
+
 
 async function startServer() {
     const server = new ApolloServer({
