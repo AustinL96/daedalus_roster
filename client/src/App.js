@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+
 import Homepage from "./components/home/Homepage";
 import UserPage from "./pages/UserPage";
-import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (

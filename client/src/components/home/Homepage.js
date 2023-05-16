@@ -103,8 +103,8 @@ function Homepage() {
           {/* <Route path="/userForm" element={<UserPage />} /> */}
 
           <Flex justifyContent="center" alignItems="center" gap={3}>
+            <Heading textAlign="center">Start Searching</Heading>
             <Link as={RouterLink} to="/profile" textDecoration="none">
-              <Heading textAlign="center">Start Searching</Heading>
               <ExternalLinkIcon boxSize="7" />
             </Link>
           </Flex>
