@@ -1,0 +1,24 @@
+type User{
+    firstName: String
+    lastName: String
+    email: String
+
+
+    skills: [String]
+    
+
+
+}
+
+type Listing{
+    jobName: String
+    companyName: String
+    location: String
+    price: Int
+    date: String
+    jobDetails: String
+    jobDescription: String
+    appliedUser: []
+
+
+}
