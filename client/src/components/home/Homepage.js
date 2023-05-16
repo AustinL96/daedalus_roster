@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Grid, GridItem, Heading, Image, Link, Text, FormControl, Input, FormLabel, useTheme} from "@chakra-ui/react";
-import {  EmailIcon } from '@chakra-ui/icons';
+import {  ExternalLinkIcon } from '@chakra-ui/icons';
 function Homepage() {
 
     const theme = useTheme()
@@ -37,7 +37,7 @@ function Homepage() {
                 maxW='100%' p='1rem' minHeight='100vh'
                 bg='gray.900' color={theme.colors[100]} border={`1px solid ${theme.colors[200]}`}
                 >
-                    <Heading textAlign='center'>Start Searching</Heading>
+                    <Heading textDecoration='underline' textAlign='center'>Create An Account</Heading>
                     <FormControl isRequired mb='40px'>
                         <FormLabel>Name:</FormLabel>
                         <Input type='text' name='name' placeholder="Enter your name..."/>
@@ -53,13 +53,18 @@ function Homepage() {
                         <Input type='password' name='password' placeholder="Create a password..."/>
                     </FormControl>
 
-                    <Flex alignItems='center' justifyContent='center' flexDirection='column' gap={1}>
-                    <Flex gap={1} alignItems="center">
-                        <Text>Already a member?</Text>
-                        <Link color="gray.400">Login here</Link>
-                    </Flex>
+                    <Flex alignItems='center' justifyContent='center' flexDirection='column' mb='40px' gap={1}>
+                        <Flex gap={1} alignItems="center">
+                            <Text>Already a member?</Text>
+                            <Link color="gray.400">Login here</Link>
+                        </Flex>
 
                         <Button type='submit' bg={theme.colors[100]} color='gray.900'>Submit</Button>
+                    </Flex >
+
+                    <Flex justifyContent='center' alignItems='center' gap={3} >
+                        <Heading textAlign='center'>Start Searching</Heading>
+                        <ExternalLinkIcon boxSize='7' />
                     </Flex>
                 </Box>
 
