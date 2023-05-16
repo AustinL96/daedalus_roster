@@ -35,7 +35,12 @@ const resolvers = {
 
       },
       // Other mutation resolvers
+      deleteListing: async  (parent, args, context, info) => {
+        
+        await Listing.findByIdAndDelete
+      }
     },
     // Other resolvers for custom types or fields
   };
 
+module.export = resolvers;
