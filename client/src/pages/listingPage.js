@@ -8,6 +8,7 @@ function Listing() {
 
     return (
 
+
         <Grid
             bgGradient={`radial-gradient(circle, ${theme.colors['100']}, ${theme.colors['200']}, gray.900)`}
             minHeight={{ lg: '130vh' }}
@@ -18,30 +19,27 @@ function Listing() {
                 padding={5}
             // minHeight="100vh"
             >
-
+                {/* Left Col  */}
                 <GridItem
                     minHeight={{ lg: '100vh' }}
                     overflowY="auto"
                     maxH="600px"
+                    borderBottom='1px'
                 >
                     <Heading textAlign='center' padding={5}  >Listing</Heading>
 
                     <Box
-
                         w={{ sm: '200px', md: '400px', lg: "600px" }}
-                        h={{ sm: '200px', md: '400px', lg: "800" }}
-                        // bgColor={"blue.500"}
+                        // h={{ sm: '200px', md: '400px', lg: "900" }}
                         border='1px'
                         justifyContent='center'
                         alignItems='center'
-
                     >
 
 
                         <Flex justifyContent="space-between"
-
-                            border='1px' >
-
+                            border='1px'
+                        >
                             <Box padding={3} >
                                 <Heading margin={2} pt={1} pl={13} fontSize='2xl'>Job Name:</Heading>
 
@@ -59,7 +57,7 @@ function Listing() {
 
                                 <Box>
                                     <Text fontSize={2}>Job description:</Text>
-                                    <Text borderColor={theme.colors[400]} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore recusandae animi quae!</Text>
+                                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore recusandae animi quae!</Text>
 
                                 </Box>
                             </Box>
@@ -67,8 +65,8 @@ function Listing() {
                         </Flex>
 
                         <Flex justifyContent="space-between"
-
-                            border='1px' >
+                            border='1px' s
+                        >
 
                             <Box padding={3} >
                                 <Heading margin={2} pt={1} pl={13} fontSize='2xl'>Job Name:</Heading>
@@ -87,7 +85,7 @@ function Listing() {
 
                                 <Box>
                                     <Text fontSize={2}>Job description:</Text>
-                                    <Text borderColor={theme.colors[400]} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore recusandae animi quae!</Text>
+                                    <Text >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore recusandae animi quae!</Text>
 
                                 </Box>
                             </Box>
@@ -96,8 +94,8 @@ function Listing() {
 
 
                         <Flex justifyContent="space-between"
-
-                            border='1px' >
+                            border='1px'
+                        >
 
                             <Box padding={3} >
                                 <Heading margin={2} pt={1} pl={13} fontSize='2xl'>Job Name:</Heading>
@@ -116,7 +114,7 @@ function Listing() {
 
                                 <Box>
                                     <Text fontSize={2}>Job description:</Text>
-                                    <Text borderColor={theme.colors[400]} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore recusandae animi quae!</Text>
+                                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore recusandae animi quae!</Text>
 
                                 </Box>
                             </Box>
@@ -124,35 +122,38 @@ function Listing() {
                         </Flex>
 
                     </Box>
-
-
-
                 </GridItem >
 
 
-
+                {/* Right Col */}
                 <GridItem
                     minHeight={{ lg: '100vh' }}
                     overflowY="auto"
                     maxH="600px"
                 >
                     <Box w={{ sm: '200px', md: '400px', lg: "600px" }}
-                        h={{ sm: '200px', md: '400px', lg: "800" }}
+                        // h={{ sm: '200px', md: '400px', lg: "9000" }}
                         // bgColor={"blue.500"}
                         border='1px'
                         justifyContent='center'
                         alignItems='center'
                     >
-                        <Heading textAlign='center' padding={5} borderBottom='1px'>Job</Heading>
+                        <Heading
+                            textAlign='center'
+                            padding={5}
+                        // borderBottom='1px' ss
+                        >
+                            Job
+                        </Heading>
 
                         <Flex justifyContent='start'>
                             <Box margin={2} padding={3}  >
                                 <Heading pt={3} pl={3} fontSize='2xl' >Job Name:</Heading>
 
                                 <UnorderedList p={3}  >
-                                    <ListItem p={3} >Company:</ListItem>
-                                    <ListItem p={3} >Location:</ListItem>
-                                    <ListItem p={3} >Salary:</ListItem>
+                                    <ListItem p={3} >Company: Apple</ListItem>
+                                    <ListItem p={3} >Location: Silicon Vally </ListItem>
+                                    <ListItem p={3} >Salary: $10.99</ListItem>
                                     <ListItem>
                                         Details
                                         <Text p={3} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum mollitia impedit?</Text>
@@ -164,6 +165,7 @@ function Listing() {
                                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, error. Tempora dolorem nesciunt velit quibusdam deserunt? Ex eius, repellendus perferendis magni officiis eveniet laudantium sed sunt tempora itaque tenetur reprehenderit.
                                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere odio sint explicabo obcaecati! Provident, ipsum aperiam. Molestiae ullam similique temporibus maiores harum, reiciendis veniam repudiandae excepturi, deleniti vel debitis atque.
                                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit quaerat, provident officiis incidunt, harum ut mollitia sit fugiat sunt laborum corrupti ab dolore necessitatibus ipsa quidem maiores ad similique atque?
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat voluptatem incidunt blanditiis, ullam laudantium, vero nostrum, expedita nisi odio unde architecto? Recusandae impedit ad autem quo! Enim veritatis deserunt eaque!
 
                                         </Text>
                                     </ListItem>
