@@ -6,6 +6,7 @@ import Register from "./components/home/Register";
 import Login from "./components/home/Login";
 import UserPage from "./pages/UserPage";
 import CreateListing from "./pages/CreateListing";
+import Listing from "./pages/listingPage";
 
 const GET_USER = gql`
   query {
