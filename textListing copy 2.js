@@ -15,7 +15,7 @@ function Listing() {
             {/* Left Column */}
             <GridItem overflowY="auto"
                 maxH={{ base: "600px", md: "100vh" }}
-
+                bgGradient={`radial-gradient(circle, ${theme.colors['100']}, ${theme.colors['200']}, gray.900)`}
                 minHeight={{ lg: '130vh' }}>
 
                 <Box border="1px" borderRadius="md" p={4}>
@@ -135,15 +135,6 @@ function Listing() {
                             Description
                         </Heading>
                         <Text mt={4}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
-                            consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
-                            mollitia impedit? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus incidunt aliquid
-                            consequuntur cupiditate quod earum alias, animi fugiat nemo eaque molestias dicta, ullam provident quas neque
-                            architecto. Ex, tempore facilis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum saepe
-                            exercitationem illo labore? Rem nobis ipsam harum officiis maxime? Est ut ipsa beatae exercitationem repudiandae
-                            adipisci iusto odit cumque tempora?l Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat voluptatem
-                            incidunt blanditiis, ullam laudantium, vero nostrum, expedita nisi odio unde architecto? Recusandae impedit ad
-                            autem quo! Enim veritatis deserunt eaque!
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
                             consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
                             mollitia impedit? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus incidunt aliquid
