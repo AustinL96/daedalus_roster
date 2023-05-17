@@ -32,7 +32,9 @@ const theme = extendTheme({ fonts, colors });
 
 //*** Server stuff */
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3333'
+  uri: 'http://localhost:3333',
+  //makes sure it includes all cookies
+  credentials: 'include'
 });
 
 // Log any GraphQL errors or network error that occurred

@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import Navigation from "../components/nav/NavBar";
 
-function UserPage() {
+function UserPage({user}) {
   const theme = useTheme();
   return (
     <>
