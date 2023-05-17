@@ -19,7 +19,7 @@ const listingSchema = new Schema({
     required: true,
     trim: true
   },  
-  Price: {
+  salary: {
     type: String,
     required: true,
     trim: true

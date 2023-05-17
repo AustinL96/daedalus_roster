@@ -18,3 +18,34 @@ export const CREATE_USER = gql`
         }
     }
 `
+
+export const CREATE_LISTING = gql`
+    mutation createListing(
+        $jobName: String!
+        $companyName: String!
+        $location: String!
+        $salary: Int!
+        $date: String!
+        $jobDetails: String!
+        $jobDescription: String!
+        $appliedUser: [User!]        
+    ){
+        createListing(
+        obName: String,
+        companyName: String,
+        location: String,
+        salary: Int,
+        date: String,
+        jobDetails: String,
+        jobDescription: String,
+        appliedUser: [User],
+        _id: ID
+        ){
+            token
+            listing{
+                _id
+            }
+        }
+    }   
+
+`
