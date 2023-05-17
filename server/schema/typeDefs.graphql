@@ -1,21 +1,22 @@
+
+
+
 type User{
     username: String
     email: String
-    password: String
     _id: ID
-
-
 }
 
 type Listing{
     jobName: String
     companyName: String
     location: String
-    price: Int
+    salary: Int
     date: String
     jobDetails: String
     jobDescription: String
-    appliedUser: [User]
+    appliedUser: String
+    _id: ID
 }
 
 type Auth{
@@ -25,11 +26,15 @@ type Auth{
 
 type Query {
   hello: String
+  getUser: User 
+  getListing(id: ID): Listing
+  getAllListing: [Listing]
 }
 
 type Mutation{
-    createUser(username: String!, email: String!, password: String!, _id: ID): Auth
-    createListing: Listing
+    createUser(username: String!, email: String!, password: String!): User
+    createListing(jobName: String, companyName: String, location: String, salary: Int, date: String, jobDetails: String, jobDescription: String, appliedUser: String, _id: ID) 
+    : Auth 
+    
 }
-
 

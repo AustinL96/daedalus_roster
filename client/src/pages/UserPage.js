@@ -21,7 +21,7 @@ import {
   Label,
 } from "recharts";
 
-function UserPage() {
+function UserPage({ user }) {
   const data = [
     { name: "Submitted", value: Math.floor(Math.random() * 5) },
     { name: "Opened", value: Math.floor(Math.random() * 5) },

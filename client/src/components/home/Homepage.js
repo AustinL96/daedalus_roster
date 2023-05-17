@@ -14,11 +14,51 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-
+import { useState } from 'react'
 import { Link as RouterLink } from "react-router-dom";
 
-function Homepage() {
+import { useMutation, gql } from '@apollo/client'
+const CREATE_USER = gql`
+  mutation CreateUser($username: String!, $email: String!, $password: String!) {
+    createUser (username: $username, email: $email, password: $password) {
+      username
+      email
+    }
+  }
+`
+
+function Homepage({setUser}) {
   const theme = useTheme();
+  const [ formData, setFormData ] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+  const [createUser] = useMutation(CREATE_USER)
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    const res = await createUser({
+      variables: formData
+    });
+
+    setUser(res.data.createUser)
+    setFormData({
+      username: '',
+      email: '',
+      password: ''
+    })
+  }
+
   return (
     <Grid templateColumns="repeat(12, 1fr)">
       <GridItem
@@ -62,12 +102,19 @@ function Homepage() {
           </Heading>
           <FormControl isRequired mb="40px">
             <FormLabel>Name:</FormLabel>
-            <Input type="text" name="name" placeholder="Enter your name..." />
+            <Input 
+            value={formData.username}
+            onChange={handleInputChange}
+            type="text" 
+            name="username" 
+            placeholder="Enter your name..." />
           </FormControl>
 
           <FormControl isRequired mb="40px">
             <FormLabel>Email:</FormLabel>
             <Input
+              value={formData.email}
+              onChange={handleInputChange}
               type="email"
               name="email"
               placeholder="Enter your email..."
@@ -77,6 +124,8 @@ function Homepage() {
           <FormControl isRequired mb="40px">
             <FormLabel>Password:</FormLabel>
             <Input
+              value={formData.password}
+              onChange={handleInputChange}
               type="password"
               name="password"
               placeholder="Create a password..."
@@ -95,7 +144,7 @@ function Homepage() {
               <Link color="gray.400">Login here</Link>
             </Flex>
 
-            <Button type="submit" bg={theme.colors[100]} color="gray.900">
+            <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900">
               Submit
             </Button>
           </Flex>
