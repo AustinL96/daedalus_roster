@@ -1,17 +1,19 @@
 import {
   Box,
+  Divider,
   Flex,
+  Heading,
   Link,
   useTheme,
   useMediaQuery,
   Stack,
+  Text
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
 
 function Navigation({ homepage, profile, dashboard, logout }) {
   const theme = useTheme();
-  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const linkGradient = keyframes`
     0% {
@@ -36,9 +38,14 @@ function Navigation({ homepage, profile, dashboard, logout }) {
 
   return (
     <Box position="sticky" top={0} zIndex={1}>
-      <Flex mb="5px" p="4px" m="5px" justifyContent="flex-end">
+      <Flex direction={{ base: "column", lg: "row" }}
+      align={{ base: "stretch", lg: "center" }}
+      justify={{ base: "center", md: "space-between" }}>
+        <Heading style={{ color: theme.colors[200] }}>
+          Daedalus.Roster
+        </Heading>
         <nav>
-          <Stack direction={isLargerThan768 ? "row" : "column"} spacing={4}>
+          <Stack direction={"row"} spacing={6} mr={3}>
             <Link as={RouterLink} to="/" sx={linkStyles}>
               {homepage}
             </Link>
@@ -54,6 +61,10 @@ function Navigation({ homepage, profile, dashboard, logout }) {
           </Stack>
         </nav>
       </Flex>
+      <Divider />
+      <Text style={{ color: theme.colors[100] }}>
+        Your Job Search - Simplified
+      </Text>
     </Box>
   );
 }

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-import Homepage from "./components/home/Homepage";
+import Register from "./components/home/Register";
+import Login from "./components/home/Login";
 import UserPage from "./pages/UserPage";
+import CreateListing from "./pages/CreateListing";
 import Listing from "./pages/listingPage";
 
 const GET_USER = gql`
@@ -31,14 +33,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={user ? <Navigate to="/profile" /> : <Homepage setUser={setUser} />} />
-        <Route path="/profile" element={!user ? <Navigate to="/" /> : <UserPage user={user} />} />
-        {/* <Route path="/dashboard" element={<UserPage />} />
-          <Route path="/logout" element={<UserPage />} /> */}
-        <Route path='/listing' element={<Listing />} />
+          <Route exact path="/" element={user ? <Navigate to="/listing" /> : <Register setUser={setUser} />} />
+          <Route path="/listing" element={ !user ? <Navigate to="/" /> : <CreateListing user={user} />} />
       </Routes>
-
-
     </>
   );
 }
