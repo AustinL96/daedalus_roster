@@ -1,40 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
 // *** Import Custom Themes
 import "@fontsource/gideon-roman";
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 // *** Client stuff
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 // *** GraphQL imports
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-
-
 
 // *** ChakraUI Custom Themes
 const fonts = {
-  body: 'GFS Neohellenic, sans-serif',
-  heading: '"Gideon Roman", GFS Neohellenic, sans-serif'
-}
+  body: "GFS Neohellenic, sans-serif",
+  heading: '"Gideon Roman", GFS Neohellenic, sans-serif',
+};
 const colors = {
-  100: '#CEA884ff',  //tan
-  200: '#C6803Cff',  //caramel
-  300: '#B97039ff', //copper
-  400: '#8A6543ff',   //raw-umber
-  500: '#17190Dff' //eerie-black
+  100: "#CEA884ff", //tan
+  200: "#C6803Cff", //caramel
+  300: "#B97039ff", //copper
+  400: "#8A6543ff", //raw-umber
+  500: "#17190Dff", //eerie-black
 };
 const theme = extendTheme({ fonts, colors });
 
-
-
-
 //*** Server stuff */
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3333',
+  uri: "http://localhost:3333",
+
   //makes sure it includes all cookies
-  credentials: 'include'
+  credentials: "include",
 });
 
 // Log any GraphQL errors or network error that occurred
@@ -54,14 +55,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <ApolloProvider client={client}>
-            <App />
-          </ApolloProvider>
+          <App />
+        </ApolloProvider>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>
