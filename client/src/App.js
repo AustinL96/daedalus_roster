@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
 import Homepage from "./components/home/Homepage";
@@ -32,10 +30,6 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Homepage />} />
-        <Route path="/profile" element={<UserPage />} />
-        {/* <Route path="/dashboard" element={<UserPage />} />
-        <Routes>
           <Route exact path="/" element={user ? <Navigate to="/profile" /> : <Homepage setUser={setUser} />} />
           <Route path="/profile" element={ !user ? <Navigate to="/" /> : <UserPage user={user} />} />
           {/* <Route path="/dashboard" element={<UserPage />} />
