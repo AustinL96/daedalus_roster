@@ -18,8 +18,8 @@ function Listing() {
 
                 minHeight={{ lg: '130vh' }}>
 
-                <Box border="1px" borderRadius="md" p={4}>
-                    <Heading fontSize="2xl" textAlign="center" mb={4}>
+                <Box borderRadius="md" p={4}>
+                    <Heading fontSize="3xl" textAlign="center" mb={4}>
                         Listing
                     </Heading>
 
@@ -50,6 +50,7 @@ function Listing() {
                     </Box>
 
                     <Box border="1px" borderRadius="md" p={4} mb={4}>
+
                         <Heading fontSize="2xl">Job Name:</Heading>
                         <UnorderedList mt={4}>
                             <ListItem>
@@ -65,9 +66,11 @@ function Listing() {
                                 <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
                             </ListItem>
                         </UnorderedList>
+
                         <Heading fontSize="lg" mt={4}>
                             Job Description:
                         </Heading>
+
                         <Text>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas
                             explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore
@@ -77,6 +80,7 @@ function Listing() {
 
                     <Box border="1px" borderRadius="md" p={4}>
                         <Heading fontSize="2xl">Job Name:</Heading>
+
                         <UnorderedList mt={4}>
                             <ListItem>
                                 <Heading fontSize="xl">Company: Google</Heading>
@@ -91,27 +95,35 @@ function Listing() {
                                 <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
                             </ListItem>
                         </UnorderedList>
+
                         <Heading fontSize="lg" mt={4}>
                             Job Description:
                         </Heading>
+
                         <Text>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas
                             explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore
                             recusandae animi quae!
                         </Text>
                     </Box>
+
                 </Box>
+
             </GridItem>
 
             {/* Right Column */}
             <GridItem overflowY="auto" maxH={{ base: "600px", md: "100vh" }}>
-                <Box border="1px" borderRadius="md" p={4}>
-                    <Heading fontSize="2xl" textAlign="center" mb={4}>
+
+                <Box borderRadius="md" p={4}>
+
+                    <Heading fontSize="3xl" textAlign="center" mb={4}>
                         Job
                     </Heading>
 
                     <Box border="1px" borderRadius="md" p={4} mb={4}>
+
                         <Heading fontSize="2xl">Job Name:</Heading>
+
                         <UnorderedList mt={4}>
                             <ListItem>
                                 <Heading fontSize="xl">Company: Apple</Heading>
@@ -122,18 +134,25 @@ function Listing() {
                             <ListItem>
                                 <Heading fontSize="xl">Salary: $10.99</Heading>
                             </ListItem>
+                            <ListItem>
+                                <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
+                            </ListItem>
                         </UnorderedList>
+
                         <Heading fontSize="lg" mt={4}>
                             Details
                         </Heading>
+
                         <Text mt={4}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
                             consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
                             mollitia impedit?
                         </Text>
+
                         <Heading fontSize="lg" mt={4}>
                             Description
                         </Heading>
+
                         <Text mt={4}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
                             consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
