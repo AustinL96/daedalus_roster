@@ -27,7 +27,7 @@ const CREATE_USER = gql`
   }
 `
 
-function Homepage({setUser}) {
+function Register({setUser}) {
   const theme = useTheme();
   const [ formData, setFormData ] = useState({
     username: '',
@@ -163,4 +163,4 @@ function Homepage({setUser}) {
   );
 }
 
-export default Homepage;
+export default Register;
