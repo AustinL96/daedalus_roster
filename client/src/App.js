@@ -20,6 +20,8 @@ const GET_USER = gql`
 function App() {
   const [user, setUser] = useState(null);
 
+  const [listing] = useState(null);
+
   const { data } = useQuery(GET_USER);
 
   useEffect(() => {
@@ -34,7 +36,9 @@ function App() {
     <>
       <Routes>
           <Route exact path="/" element={user ? <Navigate to="/listing" /> : <Register setUser={setUser} />} />
-          <Route path="/listing" element={ !user ? <Navigate to="/" /> : <CreateListing user={user} />} />
+          <Route path="/listing" element={ !user ? <Navigate to="/" /> : <CreateListing user={user}  />} />
+          <Route exact path="/reg" element={<Register/> } />
+
       </Routes>
     </>
   );

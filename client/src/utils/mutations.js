@@ -25,21 +25,16 @@ export const CREATE_LISTING = gql`
         $companyName: String!
         $location: String!
         $salary: Int!
-        $date: String!
         $jobDetails: String!
-        $jobDescription: String!
-        $appliedUser: [User!]        
+        $jobDescription: String!      
     ){
         createListing(
-        obName: String,
+        JobName: String,
         companyName: String,
         location: String,
         salary: Int,
-        date: String,
         jobDetails: String,
         jobDescription: String,
-        appliedUser: [User],
-        _id: ID
         ){
             token
             listing{

@@ -54,6 +54,7 @@ const resolvers = {
         // Resolver logic for creating a listing
         const listing = await Listing.create({args}); 
 
+        return listing;
       },
       // Other mutation resolvers
       // deleteListing: async  (parent, args, context, info) => {
