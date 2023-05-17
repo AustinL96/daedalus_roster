@@ -4,6 +4,7 @@ import { useQuery, useMutation, gql } from "@apollo/client";
 
 import Homepage from "./components/home/Homepage";
 import UserPage from "./pages/UserPage";
+import Listing from "./pages/listingPage";
 
 const GET_USER = gql`
   query {
@@ -30,11 +31,14 @@ function App() {
   return (
     <>
       <Routes>
-          <Route exact path="/" element={user ? <Navigate to="/profile" /> : <Homepage setUser={setUser} />} />
-          <Route path="/profile" element={ !user ? <Navigate to="/" /> : <UserPage user={user} />} />
-          {/* <Route path="/dashboard" element={<UserPage />} />
+        <Route exact path="/" element={user ? <Navigate to="/profile" /> : <Homepage setUser={setUser} />} />
+        <Route path="/profile" element={!user ? <Navigate to="/" /> : <UserPage user={user} />} />
+        {/* <Route path="/dashboard" element={<UserPage />} />
           <Route path="/logout" element={<UserPage />} /> */}
+        <Route path='/listing' element={<Listing />} />
       </Routes>
+
+
     </>
   );
 }
