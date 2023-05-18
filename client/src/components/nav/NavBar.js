@@ -5,9 +5,8 @@ import {
   Heading,
   Link,
   useTheme,
-  useMediaQuery,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
@@ -38,12 +37,12 @@ function Navigation({ homepage, profile, dashboard, logout }) {
 
   return (
     <Box position="sticky" top={0} zIndex={1}>
-      <Flex direction={{ base: "column", lg: "row" }}
-      align={{ base: "stretch", lg: "center" }}
-      justify={{ base: "center", md: "space-between" }}>
-        <Heading style={{ color: theme.colors[200] }}>
-          Daedalus.Roster
-        </Heading>
+      <Flex
+        direction={{ base: "column", lg: "row" }}
+        align={{ base: "stretch", lg: "center" }}
+        justify={{ base: "center", md: "space-between" }}
+      >
+        <Heading style={{ color: theme.colors[200] }}>Daedalus.Roster</Heading>
         <nav>
           <Stack direction={"row"} spacing={6} mr={3}>
             <Link as={RouterLink} to="/" sx={linkStyles}>

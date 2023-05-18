@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
 import Register from "./components/home/Register";
@@ -47,6 +45,7 @@ function App() {
           path="/listing"
           element={!user ? <Navigate to="/" /> : <CreateListing user={user} />}
         />
+        <Route path="/profile" element={<UserPage />} />
       </Routes>
     </>
   );
