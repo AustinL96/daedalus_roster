@@ -33,8 +33,10 @@ function App() {
   return (
     <>
       <Routes>
-          <Route exact path="/" element={user ? <Navigate to="/listing" /> : <Register setUser={setUser} />} />
-          <Route path="/listing" element={ !user ? <Navigate to="/" /> : <CreateListing user={user} />} />
+          <Route exact path="/" element={user ? <Navigate to="/createlisting" /> : <Register setUser={setUser} />} />
+          <Route path="/createlisting" element={ !user ? <Navigate to="/" /> : <CreateListing user={user} />} />
+          <Route path="/profile" element={<UserPage />} />
+          <Route path="/joblist" element={<Listing />} />
       </Routes>
     </>
   );

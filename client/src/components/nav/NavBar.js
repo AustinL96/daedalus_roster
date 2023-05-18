@@ -38,33 +38,51 @@ function Navigation({ homepage, profile, dashboard, logout }) {
 
   return (
     <Box position="sticky" top={0} zIndex={1}>
-      <Flex direction={{ base: "column", lg: "row" }}
-      align={{ base: "stretch", lg: "center" }}
-      justify={{ base: "center", md: "space-between" }}>
-        <Heading style={{ color: theme.colors[200] }}>
-          Daedalus.Roster
-        </Heading>
-        <nav>
-          <Stack direction={"row"} spacing={6} mr={3}>
-            <Link as={RouterLink} to="/" sx={linkStyles}>
-              {homepage}
-            </Link>
-            <Link as={RouterLink} to="/profile" sx={linkStyles}>
-              {profile}
-            </Link>
-            <Link as={RouterLink} to="/dashboard" sx={linkStyles}>
-              {dashboard}
-            </Link>
-            <Link as={RouterLink} to="/logout" sx={linkStyles}>
-              {logout}
-            </Link>
-          </Stack>
-        </nav>
+      <Flex
+        direction={{ base: "column", lg: "row" }}
+        align={{ base: "center", lg: "center" }}
+        justify={{ base: "space-between", md: "space-between" }}
+        wrap="wrap"
+        p={1}
+        bg="gray.800"
+        color="white"
+      >
+        <Box>
+          <Heading as="h1" size="lg" style={{ color: theme.colors[200]}}>
+            Daedalus.Roster
+          </Heading>
+        </Box>
+        <Stack
+          direction={{ base: "column", md: "row" }}
+          spacing={{base: 2, md: 6}}
+          mt={{ base: 4, md: 0 }}
+          align="center"
+          justify="flex-end"
+          flex={1}
+        >
+          <Link as={RouterLink} to="/" sx={linkStyles}>
+            Home
+          </Link>
+          <Link as={RouterLink} to="/profile" sx={linkStyles}>
+            My Profile
+          </Link>
+          <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
+            Create a Job
+          </Link>
+          <Link as={RouterLink} to="/joblist" sx={linkStyles}>
+            Job Listings
+          </Link>
+          <Link as={RouterLink} to="/logout" sx={linkStyles}>
+            Logout
+          </Link>
+        </Stack>
       </Flex>
       <Divider />
-      <Text style={{ color: theme.colors[100] }}>
-        Your Job Search - Simplified
-      </Text>
+      <Box p={1}>
+        <Text style={{ color: theme.colors[100] }}>
+          Your Job Search - Simplified
+        </Text>
+      </Box>
     </Box>
   );
 }
