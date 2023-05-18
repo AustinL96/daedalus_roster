@@ -48,20 +48,8 @@ function UserPage({ user }) {
       minH="100vh"
       minW="100vh"
     >
-      <Navigation
-        homepage="home"
-        profile="profile"
-        dashboard="dashboard"
-        logout="logout"
-      />
-      <Heading mt="20px" style={{ color: theme.colors[200] }}>
-        Daedalus.Roster
-      </Heading>
-      <Divider />
-      <Text style={{ color: theme.colors[100] }}>
-        Your Job Search - Simplified
-      </Text>
-
+      <Navigation />
+    
       <Flex
         direction={["column", "row"]}
         justify="center"
