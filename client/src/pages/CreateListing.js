@@ -54,7 +54,7 @@ const CREATE_LISTING = gql`
 
 
 
-function CreateListing({ setListing, setUser }) {
+function CreateListing({ setListing, setUser, user }) {
 
   const theme = useTheme();
 
@@ -110,7 +110,7 @@ function CreateListing({ setListing, setUser }) {
 
   return (
     <Box bgGradient="linear(to-b, #17190Dff, #8A6543ff, #17190Dff)" minH="100vh">
-      <Navigation setUser={setUser} homepage="home" profile="profile" dashboard="dashboard" logout="logout" />
+      <Navigation user={user} setUser={setUser} homepage="home" profile="profile" dashboard="dashboard" logout="logout" />
       <Flex justify="center">
         <Box
           as="form"

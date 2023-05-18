@@ -131,6 +131,7 @@ function UserPage({user, setUser}) {
       >
         <GridItem colSpan={12}>
           <Navigation
+            user={user}
             setUser={setUser}
             homepage="home"
             profile="profile"
