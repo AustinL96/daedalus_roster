@@ -54,8 +54,16 @@ function JobListings({user, setUser}) {
                             Listing
                         </Heading>
                     {data.getAllListing.map((listing) => (
-                        <Box key={listing._id} border="1px" borderRadius="md" p={4} mb={4} cursor="pointer"
-                        onClick={() => handleListingClick(listing)}>
+                        <Box 
+                        key={listing._id} 
+                        cursor="pointer" 
+                        bg="gray.900"
+                        mb={4}
+                        p={4}
+                        style={{ color: theme.colors[200] }}
+                        onClick={() => handleListingClick(listing)}
+                        border={`1px solid ${theme.colors[200]}`} borderRadius="md"
+                        >
                             <Heading fontSize="2xl">{listing.jobName}</Heading>
                             <UnorderedList mt={4}>
                                 <ListItem>
@@ -74,7 +82,7 @@ function JobListings({user, setUser}) {
                             <Heading fontSize="lg" mt={4}>
                                 Job Details:
                             </Heading>
-                            <Text>{listing.jobDetails}</Text>
+                            <Text color={"white"}>{listing.jobDetails}</Text>
                         </Box>
                     ))}
                     </Box>
@@ -88,7 +96,13 @@ function JobListings({user, setUser}) {
                         <Heading fontSize="3xl" textAlign="center" mb={2}>
                             Job
                         </Heading>
-                        <Box border="1px" borderRadius="md" p={4} mb={4}>
+                        <Box borderRadius="md" 
+                        p={4} 
+                        mb={4} 
+                        bg="gray.900" 
+                        border={`1px solid ${theme.colors[200]}`}
+                        style={{ color: theme.colors[200] }}
+                        >
 
                             <Heading fontSize="2xl">Job Name:</Heading>
                             {selectedListing ? ( // Step 4
@@ -110,11 +124,16 @@ function JobListings({user, setUser}) {
                                 <Heading fontSize="lg" mt={4}>
                                     Details:
                                 </Heading>
-                                <Text mt={4}>{selectedListing.jobDetails}</Text>
+                                <Text mt={4} color={"white"} style={{ whiteSpace: "pre-wrap" }}>{selectedListing.jobDetails}</Text>
                                 <Heading fontSize="lg" mt={4}>
                                     Description:
                                 </Heading>
-                                <Text mt={4}>{selectedListing.jobDescription}</Text>
+                                <Text mt={4} color={"white"} style={{ whiteSpace: "pre-wrap" }}>{selectedListing.jobDescription}</Text>
+                                {user && (
+                                    <Button type="submit" bg={theme.colors[100]} color="gray.900">
+                                        Apply Here
+                                    </Button>
+                                )}
                             </>
                         ) : (
                             <Text>No listing selected. Please select a job listing to view its data!</Text>

@@ -87,7 +87,7 @@ function Navigation({ user, setUser }) {
               <Link as={RouterLink} to="/joblistings" sx={linkStyles}>
                 Job Listings
               </Link>
-              <Link onClick={handleLogout} sx={linkStyles}>
+              <Link as={RouterLink} onClick={handleLogout} to="/" sx={linkStyles}>
                 Logout
               </Link>
             </>

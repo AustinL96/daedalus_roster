@@ -154,6 +154,7 @@ function CreateListing({ setListing, setUser, user }) {
                 type="text"
                 name="jobDetails"
                 placeholder="A short description to grab attention..."
+                style={{ whiteSpace: "pre-wrap" }}
               />
             </FormControl>
 
@@ -165,6 +166,7 @@ function CreateListing({ setListing, setUser, user }) {
                 type="text"
                 name="jobDescription"
                 placeholder="A longer description with all information about the job..."
+                style={{ whiteSpace: "pre-wrap" }}
               />
             </FormControl>
 
