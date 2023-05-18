@@ -81,7 +81,10 @@ function App() {
             )
           }
         />
-        <Route path="/profile" element={<UserPage />} />
+
+        <Route path="/reg" element={<Register setUser={setUser} />} />
+
+        <Route path="/profile" element={<UserPage user={user} setUser={setUser}/>} />
         <Route path="/joblist" element={<Listing />} />
       </Routes>
     </>

@@ -40,6 +40,7 @@ const resolvers = {
       },
 
       // Other query resolvers
+
     },
     Mutation: {
       createUser: async (parent, args, context, info) => {
@@ -57,10 +58,20 @@ const resolvers = {
         return listing;
       },
       // Other mutation resolvers
-      // deleteListing: async  (parent, args, context, info) => {
-        
+      // deleteListing: async  (parent, args, context, info) => {        
       //   await Listing.findByIdAndDelete
       // }
+
+      updateUser: async (_, args, context, ____) =>{
+        if(!context.user_id){
+          return null;
+        }
+        const user = await User.findByIdAndUpdate(context.user_id, args, {new:true});
+        
+        console.log(user);
+        return user;
+      }
+
     },
     // Other resolvers for custom types or fields
   };

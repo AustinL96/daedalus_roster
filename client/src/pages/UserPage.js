@@ -13,6 +13,9 @@ import {
 } from "@chakra-ui/react";
 import Navigation from "../components/nav/NavBar";
 
+import { useState } from 'react'
+
+
 // import greeting.js
 import GreetUser from "../components/greetings/Greeting";
 
@@ -26,7 +29,20 @@ import {
   Label,
 } from "recharts";
 
-function UserPage() {
+import { useMutation, gql } from '@apollo/client'
+
+const UPDATE_USER = gql`
+  mutation UpdateUser($aboutMe:String!, $experience:String!, $skills:String!, $EduAndLic:String){
+    updateUser(aboutMe:$aboutMe, experience:$experience, skills:$skills, EduAndLic:$EduAndLic){
+      aboutMe
+      experience
+      skills
+      EduAndLic
+    }
+  }
+`
+
+function UserPage({user, setUser}) {
   const data = [
     { name: "Submitted", value: Math.floor(Math.random() * 5) },
     { name: "Opened", value: Math.floor(Math.random() * 5) },
@@ -42,11 +58,45 @@ function UserPage() {
 
   let [value, setValue] = React.useState("");
 
-  let handleInputChange = (e, field) => {
-    let inputValue = e.target.value;
+  const [formData, setFormData] = useState({
+    userName:'',
+    email:'',
+    password:'',
+  });
 
-    return setValue(inputValue);
+
+  const [updateUser] = useMutation(UPDATE_USER);
+
+
+
+  const handleInputChange = (e, field) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value 
+    })
+
+    // let inputValue = e.target.value;
+
+    // return setValue(inputValue);
   };
+
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+
+    const res = await updateUser({
+      variables: formData
+    });
+    setUser(res.data.updateUser)
+    setFormData({
+      aboutMe:'',
+      experience:'',
+      skills:'',
+      EduAndLic: ''
+    })
+
+  }
+
 
   return (
     <>
@@ -87,13 +137,13 @@ function UserPage() {
           <Text mb="8px">About Me: {value}</Text>
           <Textarea
             align="center"
-            value={value}
+            value={formData.aboutMe}
             onChange={handleInputChange}
             placeholder="..."
             size="sm"
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
@@ -112,7 +162,7 @@ function UserPage() {
           <Text mb="8px">Experience: {value}</Text>
           <Textarea
             align="center"
-            value={value}
+            value={formData.experience}
             onChange={handleInputChange}
             placeholder="..."
             size="sm"
@@ -136,7 +186,7 @@ function UserPage() {
         >
           <Text mb="8px">Skills: {value}</Text>
           <Textarea
-            value={value}
+            value={formData.skills}
             onChange={handleInputChange}
             placeholder="..."
             size="sm"
@@ -161,7 +211,7 @@ function UserPage() {
         >
           <Text mb="8px">Education & License: {value}</Text>
           <Textarea
-            value={value}
+            value={formData.EduAndLic}
             onChange={handleInputChange}
             placeholder="..."
             size="sm"
@@ -172,7 +222,7 @@ function UserPage() {
             save
           </Button>
         </GridItem>
-
+    
         {/* <FormTemplate /> */}
 
         <GridItem colStart={5} colSpan={4} rowStart={5} ml={5} p={25}>
@@ -222,6 +272,9 @@ function UserPage() {
                 style={{ fill: labelColor }}
               />
             </PieChart>
+
+
+        
           </ResponsiveContainer>
         </GridItem>
       </Grid>
