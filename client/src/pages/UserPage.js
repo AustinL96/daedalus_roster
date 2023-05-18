@@ -41,8 +41,21 @@ const UPDATE_USER = gql`
     }
   }
 `
+// const GET_USER = gql`
+//   query GetUser{
+//     getUser {
+//       username
+//       email
+//       aboutMe
+//       experience
+//       skills
+//       EduAndLic
+//     }
+//   }
+// `;
 
 function UserPage({user, setUser}) {
+
   const data = [
     { name: "Submitted", value: Math.floor(Math.random() * 5) },
     { name: "Opened", value: Math.floor(Math.random() * 5) },
@@ -59,13 +72,12 @@ function UserPage({user, setUser}) {
   // let [value, setValue] = React.useState("");
 
   const [formData, setFormData] = useState({
-    userName:'',
-    email:'',
-    password:'',
-    aboutMe:'',
-    experience:'',
-    skills:'',
-    EduAndLic:'',
+    userName:user.userName || '',
+    email: user.email|| '',
+    aboutMe: user.aboutMe || '' ,
+    experience: user.experience ||'',
+    skills: user.skills ||'',
+    EduAndLic: user.EduAndLic ||'',
   });
 
 
@@ -74,15 +86,18 @@ function UserPage({user, setUser}) {
 
 
   const handleInputChange = (e, field) => {
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value 
+      [e.target.name]: e.target.value,
     })
 
     // let inputValue = e.target.value;
 
     // return setValue(inputValue);
   };
+
+
 
 
   const handleSubmit = async (e)=>{
@@ -93,10 +108,12 @@ function UserPage({user, setUser}) {
     });
     setUser(res.data.updateUser)
     setFormData({
-      aboutMe:'',
-      experience:'',
-      skills:'',
-      EduAndLic: ''
+      userName: user.userName || '',
+      email: user.email || '',
+      aboutMe: res.data.updateUser.aboutMe || '', // Update with the saved value
+      experience: res.data.updateUser.experience || '', // Update with the saved value
+      skills: res.data.updateUser.skills || '', // Update with the saved value
+      EduAndLic: res.data.updateUser.EduAndLic || '', // Update with the saved value
     })
 
   }
@@ -139,15 +156,16 @@ function UserPage({user, setUser}) {
           m={4}
           align="center"
         >
-          <Text mb="8px">About Me: {formData.username}</Text>
+          <Text mb="8px">About Me:</Text>
           <Textarea
             align="center"
-            value={formData.aboutMe}
+            value={formData.aboutMe || user.aboutMe}
             onChange={handleInputChange}
             name="aboutMe"
             placeholder="..."
             size="sm"
           />
+            
 
           <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
@@ -168,14 +186,14 @@ function UserPage({user, setUser}) {
           <Text mb="8px">Experience: </Text>
           <Textarea
             align="center"
-            value={formData.experience}
+            value={formData.experience || user.experience  }
             onChange={handleInputChange}
             name="experience"
             placeholder="..."
             size="sm"
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
@@ -193,7 +211,7 @@ function UserPage({user, setUser}) {
         >
           <Text mb="8px">Skills: </Text>
           <Textarea
-            value={formData.skills}
+            value={formData.skills || user.skills}
             onChange={handleInputChange}
             name="skills"
             placeholder="..."
@@ -201,7 +219,7 @@ function UserPage({user, setUser}) {
             p={4}
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
@@ -219,7 +237,7 @@ function UserPage({user, setUser}) {
         >
           <Text mb="8px">Education & License: </Text>
           <Textarea
-            value={formData.EduAndLic}
+            value={formData.EduAndLic ||user.EduAndLic}
             onChange={handleInputChange}
             name="EduAndLic"
             placeholder="..."
@@ -227,7 +245,7 @@ function UserPage({user, setUser}) {
             p={3}
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>

@@ -14,6 +14,11 @@ const GET_USER = gql`
     getUser {
       username
       email
+      aboutMe
+      experience
+      skills
+      EduAndLic
+      _id
     }
   }
 `;
@@ -65,7 +70,7 @@ function App() {
           path="/"
           element={
             user ? (
-              <Navigate to="/profile" />
+              <Navigate to="/profile"   />
             ) : (
               <Register setUser={setUser} />
             )

@@ -25,6 +25,10 @@ const LOGIN_USER = gql`
       # this is returned to frontend
       username
       email
+      aboutMe
+      experience
+      skills
+      EduAndLic
       _id
     }
   }

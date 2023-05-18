@@ -91,8 +91,8 @@ const resolvers = {
           return null;
         }
         const user = await User.findById(context.user_id);
-        console.log('******************************')
-        console.log(args);
+        // console.log('******************************')
+        // console.log(args);
 
         user.aboutMe = args.aboutMe;
         user.experience = args.experience;
