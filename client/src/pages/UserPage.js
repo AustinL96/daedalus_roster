@@ -13,6 +13,9 @@ import {
 } from "@chakra-ui/react";
 import Navigation from "../components/nav/NavBar";
 
+import { useState } from 'react'
+
+
 // import greeting.js
 import GreetUser from "../components/greetings/Greeting";
 
@@ -26,7 +29,33 @@ import {
   Label,
 } from "recharts";
 
-function UserPage({ user, setUser }) {
+import { useMutation, gql } from '@apollo/client'
+
+const UPDATE_USER = gql`
+  mutation UpdateUser($aboutMe:String, $experience:String, $skills:String, $EduAndLic:String){
+    updateUser(aboutMe:$aboutMe, experience:$experience, skills:$skills, EduAndLic:$EduAndLic){
+      aboutMe
+      experience
+      skills
+      EduAndLic
+    }
+  }
+`
+// const GET_USER = gql`
+//   query GetUser{
+//     getUser {
+//       username
+//       email
+//       aboutMe
+//       experience
+//       skills
+//       EduAndLic
+//     }
+//   }
+// `;
+
+function UserPage({user, setUser}) {
+
   const data = [
     { name: "Submitted", value: Math.floor(Math.random() * 5) },
     { name: "Opened", value: Math.floor(Math.random() * 5) },
@@ -40,13 +69,55 @@ function UserPage({ user, setUser }) {
   const strokeColor = theme.colors[200];
   const labelColor = theme.colors[500];
 
-  let [value, setValue] = React.useState("");
+  // let [value, setValue] = React.useState("");
 
-  let handleInputChange = (e, field) => {
-    let inputValue = e.target.value;
+  const [formData, setFormData] = useState({
+    userName:user.userName || '',
+    email: user.email|| '',
+    aboutMe: user.aboutMe || '' ,
+    experience: user.experience ||'',
+    skills: user.skills ||'',
+    EduAndLic: user.EduAndLic ||'',
+  });
 
-    return setValue(inputValue);
+
+  const [updateUser] = useMutation(UPDATE_USER);
+
+
+
+  const handleInputChange = (e, field) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+
+    // let inputValue = e.target.value;
+
+    // return setValue(inputValue);
   };
+
+
+
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+
+    const res = await updateUser({
+      variables: formData
+    });
+    setUser(res.data.updateUser)
+    setFormData({
+      userName: user.userName || '',
+      email: user.email || '',
+      aboutMe: res.data.updateUser.aboutMe || '', // Update with the saved value
+      experience: res.data.updateUser.experience || '', // Update with the saved value
+      skills: res.data.updateUser.skills || '', // Update with the saved value
+      EduAndLic: res.data.updateUser.EduAndLic || '', // Update with the saved value
+    })
+
+  }
+
 
   return (
     <>
@@ -86,16 +157,18 @@ function UserPage({ user, setUser }) {
           m={4}
           align="center"
         >
-          <Text mb="8px">About Me: {value}</Text>
+          <Text mb="8px">About Me:</Text>
           <Textarea
             align="center"
-            value={value}
+            value={formData.aboutMe || user.aboutMe}
             onChange={handleInputChange}
+            name="aboutMe"
             placeholder="..."
             size="sm"
           />
+            
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
@@ -111,16 +184,17 @@ function UserPage({ user, setUser }) {
           m={4}
           align="center"
         >
-          <Text mb="8px">Experience: {value}</Text>
+          <Text mb="8px">Experience: </Text>
           <Textarea
             align="center"
-            value={value}
+            value={formData.experience || user.experience  }
             onChange={handleInputChange}
+            name="experience"
             placeholder="..."
             size="sm"
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
@@ -136,16 +210,17 @@ function UserPage({ user, setUser }) {
           m={4}
           align="center"
         >
-          <Text mb="8px">Skills: {value}</Text>
+          <Text mb="8px">Skills: </Text>
           <Textarea
-            value={value}
+            value={formData.skills || user.skills}
             onChange={handleInputChange}
+            name="skills"
             placeholder="..."
             size="sm"
             p={4}
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
@@ -161,20 +236,21 @@ function UserPage({ user, setUser }) {
           m={4}
           align="center"
         >
-          <Text mb="8px">Education & License: {value}</Text>
+          <Text mb="8px">Education & License: </Text>
           <Textarea
-            value={value}
+            value={formData.EduAndLic ||user.EduAndLic}
             onChange={handleInputChange}
+            name="EduAndLic"
             placeholder="..."
             size="sm"
             p={3}
           />
 
-          <Button colorScheme="green" variant="link">
+          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
             save
           </Button>
         </GridItem>
-
+    
         {/* <FormTemplate /> */}
 
         <GridItem colStart={5} colSpan={4} rowStart={5} ml={5} p={25}>
@@ -224,6 +300,9 @@ function UserPage({ user, setUser }) {
                 style={{ fill: labelColor }}
               />
             </PieChart>
+
+
+        
           </ResponsiveContainer>
         </GridItem>
       </Grid>

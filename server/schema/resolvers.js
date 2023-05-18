@@ -90,6 +90,28 @@ const resolvers = {
       const listing = await Listing.create(args); // Create a new listing with the provided arguments
       return listing; // Return the created listing
     },
+    updateUser: async (_, args, context, ____) => {
+      try {
+        if (!context.user_id) {
+          return null;
+        }
+        const user = await User.findById(context.user_id);
+        // console.log('******************************')
+        // console.log(args);
+
+        user.aboutMe = args.aboutMe;
+        user.experience = args.experience;
+        user.skills = args.skills;
+        user.EduAndLic = args.EduAndLic;
+
+        await user.save();
+        console.log(user);
+        return user;
+      } catch (error) {
+        console.error('Error updating the user:', error);
+        throw new Error('Failed to update the user\'s fields');
+      }
+    }
   },
   // Other resolvers for custom types or fields
 };
