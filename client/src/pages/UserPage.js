@@ -7,6 +7,12 @@ import {
   Heading,
   Text,
   Divider,
+  FormControl,
+  FormLabel,
+  Textarea,
+  Center,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import Navigation from "../components/nav/NavBar";
 import FormTemplate from "../components/userForm/ResumeForm";
@@ -42,52 +48,111 @@ function UserPage({ user }) {
       " 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.8)",
   };
 
+  let [value, setValue] = React.useState("");
+
+  let handleInputChange = (e) => {
+    let inputValue = e.target.value;
+    setValue(inputValue);
+  };
+
   return (
-    <Box
-      bgGradient="linear(to-b, #17190Dff, #8A6543ff, #17190Dff )"
-      minH="100vh"
-      minW="100vh"
-    >
-      <Navigation
-        homepage="home"
-        profile="profile"
-        dashboard="dashboard"
-        logout="logout"
-      />
-      <Heading mt="20px" style={{ color: theme.colors[200] }}>
-        Daedalus.Roster
-      </Heading>
-      <Divider />
-      <Text style={{ color: theme.colors[100] }}>
-        Your Job Search - Simplified
-      </Text>
-
-      <Flex
-        direction={["column", "row"]}
-        justify="center"
-        align="center"
-        h="calc(100vh - 185px)"
+    <>
+      <Grid
+        templateRows="repeat(6,1fr)"
+        templateColumns="repeat(12, 1fr)"
+        bgGradient="linear(to-b, #17190Dff, #8A6543ff, #17190Dff )"
+        minH="100vh"
+        minW="100vh"
       >
-        <Box maxW="25vh">
-          <aside>
-            <Text>
-              Get full access to our sites data anyltics system. You will have
-              features equipped to upgrade your resume wording with help of AI
-              and keyword charts.
-            </Text>
-          </aside>
-        </Box>
-        <Divider orientation="vertical" m="20px" />
-        <FormTemplate />
+        <GridItem colSpan={12}>
+          <Navigation
+            homepage="home"
+            profile="profile"
+            dashboard="dashboard"
+            logout="logout"
+          />
+          <Heading mt="20px" style={{ color: theme.colors[200] }}>
+            Daedalus.Roster{" "}
+          </Heading>
+          <Divider />
+        </GridItem>
 
-        <Box
-          w={["100%", "25%"]}
-          p={4}
-          bg="transparent"
-          m={10}
+        <GridItem
+          border="1px solid"
+          rounded="10px"
+          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+          rowStart={2}
+          colStart={1}
+          colEnd={3}
+          m={3}
+        >
+          <Text mb="8px">About Me: {value}</Text>
+          <Textarea
+            value={value}
+            onChange={handleInputChange}
+            placeholder="Here is a sample placeholder"
+            size="sm"
+          />
+        </GridItem>
+
+        <GridItem
+          border="1px solid"
+          rounded="10px"
+          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+          colStart={1}
+          colEnd={3}
+          m={3}
+        >
+          <Text mb="8px">Experience: {value}</Text>
+          <Textarea
+            value={value}
+            onChange={handleInputChange}
+            placeholder="Here is a sample placeholder"
+            size="sm"
+          />
+        </GridItem>
+
+        <GridItem
+          border="1px solid"
+          rounded="10px"
+          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+          colStart={1}
+          colEnd={3}
+          m={3}
+        >
+          <Text mb="8px">Skills: {value}</Text>
+          <Textarea
+            value={value}
+            onChange={handleInputChange}
+            placeholder="Here is a sample placeholder"
+            size="sm"
+          />
+        </GridItem>
+
+        <GridItem
+          border="1px solid"
+          rounded="10px"
+          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+          colStart={1}
+          colEnd={3}
+          m={3}
+        >
+          <Text mb="8px">Education and License: {value}</Text>
+          <Textarea
+            value={value}
+            onChange={handleInputChange}
+            placeholder="Here is a sample placeholder"
+            size="sm"
+          />
+        </GridItem>
+
+        <GridItem
+          colStart={3}
+          colEnd={8}
+          rowStart={3}
+          rowEnd={5}
+          border="1px solid"
           style={bevel}
-          right={10}
-          bottom={10}
         >
           <VStack spacing={25}>
             <ResponsiveContainer width="100%" height={170}>
@@ -139,9 +204,13 @@ function UserPage({ user }) {
             </ResponsiveContainer>
             <MyChart />
           </VStack>
-        </Box>
-      </Flex>
-    </Box>
+        </GridItem>
+
+        <Divider orientation="vertical" />
+
+        {/* <FormTemplate /> */}
+      </Grid>
+    </>
   );
 }
 

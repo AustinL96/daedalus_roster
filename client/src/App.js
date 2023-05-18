@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+
 import { useQuery, useMutation, gql } from "@apollo/client";
 
 import Homepage from "./components/home/Homepage";
