@@ -48,6 +48,18 @@ const userSchema = new Schema({
   ]
 });
 
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const encrypted_password = await bcrypt.hash(this.password, 10);
+    this.password = encrypted_password;
+    return next();
+  }
+  next();
+});
+userSchema.methods.validatePass = async function (form_password) {
+  const is_valid = await bcrypt.compare(form_password, this.password);
+  return is_valid;
+}
 
 const User = model('user', userSchema);
 
