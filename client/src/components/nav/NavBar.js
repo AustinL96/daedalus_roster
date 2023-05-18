@@ -36,18 +36,13 @@ function Navigation({ homepage, profile, dashboard, logout }) {
   };
 
   return (
-    <Box
-      position="sticky"
-      top={0}
-      zIndex={1}
-      style={{ background: theme.colors[400] }}
-    >
+    <Box position="sticky" top={0} zIndex={1}>
       <Flex
         direction={{ base: "column", lg: "row" }}
         align={{ base: "stretch", lg: "center" }}
         justify={{ base: "center", md: "space-between" }}
       >
-        <Heading style={{ color: theme.colors[500] }}>Daedalus.Roster</Heading>
+        <Heading style={{ color: theme.colors[200] }}>Daedalus.Roster</Heading>
         <nav>
           <Stack direction={"row"} spacing={6} mr={3}>
             <Link as={RouterLink} to="/" sx={linkStyles}>
@@ -66,9 +61,11 @@ function Navigation({ homepage, profile, dashboard, logout }) {
         </nav>
       </Flex>
       <Divider />
-      <Text style={{ color: theme.colors[100] }}>
-        Your Job Search - Simplified
-      </Text>
+      <Box p={1}>
+        <Text style={{ color: theme.colors[100] }}>
+          Your Job Search - Simplified
+        </Text>
+      </Box>
     </Box>
   );
 }
