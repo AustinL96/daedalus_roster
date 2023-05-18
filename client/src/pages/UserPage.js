@@ -32,7 +32,7 @@ import {
 import { useMutation, gql } from '@apollo/client'
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($aboutMe:String!, $experience:String!, $skills:String!, $EduAndLic:String){
+  mutation UpdateUser($aboutMe:String, $experience:String, $skills:String, $EduAndLic:String){
     updateUser(aboutMe:$aboutMe, experience:$experience, skills:$skills, EduAndLic:$EduAndLic){
       aboutMe
       experience
@@ -56,12 +56,16 @@ function UserPage({user, setUser}) {
   const strokeColor = theme.colors[200];
   const labelColor = theme.colors[500];
 
-  let [value, setValue] = React.useState("");
+  // let [value, setValue] = React.useState("");
 
   const [formData, setFormData] = useState({
     userName:'',
     email:'',
     password:'',
+    aboutMe:'',
+    experience:'',
+    skills:'',
+    EduAndLic:'',
   });
 
 
@@ -135,11 +139,12 @@ function UserPage({user, setUser}) {
           m={4}
           align="center"
         >
-          <Text mb="8px">About Me: {value}</Text>
+          <Text mb="8px">About Me: {formData.username}</Text>
           <Textarea
             align="center"
             value={formData.aboutMe}
             onChange={handleInputChange}
+            name="aboutMe"
             placeholder="..."
             size="sm"
           />
@@ -160,11 +165,12 @@ function UserPage({user, setUser}) {
           m={4}
           align="center"
         >
-          <Text mb="8px">Experience: {value}</Text>
+          <Text mb="8px">Experience: </Text>
           <Textarea
             align="center"
             value={formData.experience}
             onChange={handleInputChange}
+            name="experience"
             placeholder="..."
             size="sm"
           />
@@ -185,10 +191,11 @@ function UserPage({user, setUser}) {
           m={4}
           align="center"
         >
-          <Text mb="8px">Skills: {value}</Text>
+          <Text mb="8px">Skills: </Text>
           <Textarea
             value={formData.skills}
             onChange={handleInputChange}
+            name="skills"
             placeholder="..."
             size="sm"
             p={4}
@@ -210,10 +217,11 @@ function UserPage({user, setUser}) {
           m={4}
           align="center"
         >
-          <Text mb="8px">Education & License: {value}</Text>
+          <Text mb="8px">Education & License: </Text>
           <Textarea
             value={formData.EduAndLic}
             onChange={handleInputChange}
+            name="EduAndLic"
             placeholder="..."
             size="sm"
             p={3}
