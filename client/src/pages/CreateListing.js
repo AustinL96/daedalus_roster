@@ -104,7 +104,7 @@ function CreateListing({ setListing, setUser, user }) {
       datePosted: '',
       jobDetails: '',
       jobDescription: '',
-      appliedUser: 'Placeholder'
+      appliedUser: ''
     })
   }
 
