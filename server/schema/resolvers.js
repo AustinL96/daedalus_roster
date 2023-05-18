@@ -115,6 +115,30 @@ const resolvers = {
         console.error('Error updating the user:', error);
         throw new Error('Failed to update the user\'s fields');
       }
+    },
+    applyToListing: async (_, { listingId, userId }) => {
+      try {
+        // Find the listing by its ID
+        const listing = await Listing.findById(listingId);
+    
+        // Find the user by their ID
+        const user = await User.findById(userId);
+    
+        // Check if the listing or user exists
+        if (!listing || !user) {
+          throw new Error('Listing or user not found.');
+        }
+    
+        // Add the user to the appliedUsers array
+        listing.appliedUsers.push(user);
+    
+        // Save the updated listing
+        await listing.save();
+    
+        return 'User applied to the listing successfully.';
+      } catch (error) {
+        throw new Error(`Failed to apply to listing: ${error.message}`);
+      }
     }
   },
   // Other resolvers for custom types or fields

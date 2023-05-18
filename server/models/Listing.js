@@ -39,21 +39,15 @@ const listingSchema = new Schema({
     required: true,
     trim: true
   },
-  appliedUser: [
+  appliedUsers: [
     {
-      type: String,
-      trim:true
-    }
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
   ],
   creatorId: {
     type: Schema.Types.ObjectId
   }
-  // appliedUser: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'user'
-  //   }
-  // ]
 });
 
 
