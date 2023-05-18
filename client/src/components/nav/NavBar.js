@@ -11,7 +11,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
 
-function Navigation({ homepage, profile, dashboard, logout }) {
+function Navigation() {
   const theme = useTheme();
 
   const linkGradient = keyframes`
