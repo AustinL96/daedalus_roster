@@ -141,7 +141,7 @@ function Register({setUser}) {
           >
             <Flex gap={1} alignItems="center">
               <Text>Already a member?</Text>
-              <Link color="gray.400">Login here</Link>
+              <Link as={RouterLink} to="/login" color="gray.400">Login here</Link>
             </Flex>
 
             <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900">
@@ -149,11 +149,9 @@ function Register({setUser}) {
             </Button>
           </Flex>
 
-          {/* <Route path="/userForm" element={<UserPage />} /> */}
-
           <Flex justifyContent="center" alignItems="center" gap={3}>
             <Heading textAlign="center">Start Searching</Heading>
-            <Link as={RouterLink} to="/profile" textDecoration="none">
+            <Link as={RouterLink} to="/joblistings" textDecoration="none">
               <ExternalLinkIcon boxSize="7" />
             </Link>
           </Flex>

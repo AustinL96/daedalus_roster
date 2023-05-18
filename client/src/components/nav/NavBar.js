@@ -10,9 +10,26 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
+import { useMutation, gql } from "@apollo/client";
 
-function Navigation() {
+const LOGOUT_USER = gql`
+  mutation LogoutUser {
+    logoutUser
+  }
+`;
+
+function Navigation({ user, setUser }) {
+  const [logout] = useMutation(LOGOUT_USER);
   const theme = useTheme();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const linkGradient = keyframes`
     0% {
@@ -59,21 +76,32 @@ function Navigation() {
           justify="flex-end"
           flex={1}
         >
-          <Link as={RouterLink} to="/" sx={linkStyles}>
-            Home
-          </Link>
-          <Link as={RouterLink} to="/profile" sx={linkStyles}>
-            My Profile
-          </Link>
-          <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
-            Create a Job
-          </Link>
-          <Link as={RouterLink} to="/joblist" sx={linkStyles}>
-            Job Listings
-          </Link>
-          <Link as={RouterLink} to="/logout" sx={linkStyles}>
-            Logout
-          </Link>
+          {user !== null && (
+            <>
+              <Link as={RouterLink} to="/profile" sx={linkStyles}>
+                My Profile
+              </Link>
+              <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
+                Create a Job
+              </Link>
+              <Link as={RouterLink} to="/joblistings" sx={linkStyles}>
+                Job Listings
+              </Link>
+              <Link
+                as={RouterLink}
+                onClick={handleLogout}
+                to="/"
+                sx={linkStyles}
+              >
+                Logout
+              </Link>
+            </>
+          )}
+          {user === null && (
+            <Link as={RouterLink} to="/" sx={linkStyles}>
+              Home
+            </Link>
+          )}
         </Stack>
       </Flex>
       <Divider />
