@@ -11,29 +11,47 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
 
-function Navigation({ homepage, profile, dashboard, logout }) {
-  const theme = useTheme();
+import { useMutation, gql } from '@apollo/client'
+const LOGOUT_USER = gql`
+  mutation LogoutUser{
+    logoutUser 
+  }
+`
 
-  const linkGradient = keyframes`
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  `;
+function Navigation({setUser}) {
+    const [logout] = useMutation(LOGOUT_USER)
 
-  const linkStyles = {
-    fontWeight: "bold",
-    transition: "font-size 0.3s",
-    bgGradient: `linear(to-t, ${theme.colors[200]},${theme.colors[200]}, ${theme.colors[400]})`,
-    bgClip: "text",
-    display: "inline-block",
-    backgroundSize: "200% 100%",
-    animation: `${linkGradient} 10s linear infinite`,
-    cursor: "pointer",
-    marginRight: "10px",
-  };
+    const handleLogout = async () => {
+      try {
+        await logout();
+        setUser(null)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const theme = useTheme();
+
+    const linkGradient = keyframes`
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
+    `;
+
+    const linkStyles = {
+      fontWeight: "bold",
+      transition: "font-size 0.3s",
+      bgGradient: `linear(to-t, ${theme.colors[200]},${theme.colors[200]}, ${theme.colors[400]})`,
+      bgClip: "text",
+      display: "inline-block",
+      backgroundSize: "200% 100%",
+      animation: `${linkGradient} 10s linear infinite`,
+      cursor: "pointer",
+      marginRight: "10px",
+    };
 
   return (
     <Box position="sticky" top={0} zIndex={1}>
@@ -68,10 +86,10 @@ function Navigation({ homepage, profile, dashboard, logout }) {
           <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
             Create a Job
           </Link>
-          <Link as={RouterLink} to="/joblist" sx={linkStyles}>
+          <Link as={RouterLink} to="/joblistings" sx={linkStyles}>
             Job Listings
           </Link>
-          <Link as={RouterLink} to="/logout" sx={linkStyles}>
+          <Link as={RouterLink} onClick={handleLogout} to="/" sx={linkStyles}>
             Logout
           </Link>
         </Stack>

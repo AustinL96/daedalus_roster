@@ -18,11 +18,14 @@ import { useState } from 'react'
 import { Link as RouterLink } from "react-router-dom";
 
 import { useMutation, gql } from '@apollo/client'
-const CREATE_USER = gql`
-  mutation CreateUser($username: String!, $email: String!, $password: String!) {
-    createUser (username: $username, email: $email, password: $password) {
+const LOGIN_USER = gql`
+  mutation loginUser($email: String!, $password: String!) {
+    # these go to backend
+    loginUser (email: $email, password: $password) {
+      # this is returned to frontend
       username
       email
+      _id
     }
   }
 `
@@ -30,11 +33,10 @@ const CREATE_USER = gql`
 function Login({setUser}) {
   const theme = useTheme();
   const [ formData, setFormData ] = useState({
-    username: '',
     email: '',
     password: ''
   })
-  const [createUser] = useMutation(CREATE_USER)
+  const [loginUser] = useMutation(LOGIN_USER)
 
   const handleInputChange = (e) => {
     setFormData({
@@ -46,17 +48,19 @@ function Login({setUser}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    const res = await createUser({
-      variables: formData
-    });
-
-    setUser(res.data.createUser)
-    setFormData({
-      username: '',
-      email: '',
-      password: ''
-    })
+    try {
+      const res = await loginUser({
+        variables: formData
+      });
+  
+      setUser(res.data.loginUser)
+      setFormData({
+        email: '',
+        password: ''
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (
@@ -132,7 +136,7 @@ function Login({setUser}) {
           >
             <Flex gap={1} alignItems="center">
               <Text>Not a member?</Text>
-              <Link color="gray.400">Register here</Link>
+              <Link as={RouterLink} to="/" color="gray.400">Register here</Link>
             </Flex>
 
             <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900">

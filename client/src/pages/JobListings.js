@@ -2,12 +2,12 @@ import { Box, Button, Flex, Grid, GridItem, Heading, Image, Link, Text, Textarea
 import { color } from "framer-motion";
 import Navigation from "../components/nav/NavBar";
 
-function Listing() {
+function JobListings({setUser}) {
     const theme = useTheme();
 
     return (
         <Box bgGradient={`radial-gradient(circle, ${theme.colors['100']}, ${theme.colors['200']}, ${theme.colors['300']}, gray.900)`}>
-            <Navigation />
+            <Navigation setUser={setUser}/>
             <Grid
                 templateColumns={{ base: "1fr", md: "1fr 1fr" }}
                 gap={4}
@@ -185,4 +185,4 @@ function Listing() {
     );
 }
 
-export default Listing;
+export default JobListings;
