@@ -44,7 +44,10 @@ const listingSchema = new Schema({
       type: String,
       trim:true
     }
-  ]
+  ],
+  creatorId: {
+    type: Schema.Types.ObjectId
+  }
   // appliedUser: [
   //   {
   //     type: Schema.Types.ObjectId,

@@ -19,6 +19,7 @@ type Listing{
     jobDescription: String
     appliedUser: String
     _id: ID
+    creatorId: ID!
 }
 
 type Auth{
@@ -45,6 +46,7 @@ type Mutation{
         datePosted: String, 
         jobDetails: String!, 
         jobDescription: String!, 
+        creatorId: ID!
         appliedUser: String
         ) : Listing 
     logoutUser: Boolean

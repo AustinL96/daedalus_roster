@@ -35,10 +35,11 @@ const CREATE_LISTING = gql`
     $datePosted: String,
     $jobDetails: String!,
     $jobDescription: String!,
-    $appliedUser: String
+    $appliedUser: String,
+    $creatorId: ID!
     ){
       createListing(jobName: $jobName, companyName: $companyName, location: $location, salary: $salary,
-      datePosted: $datePosted, jobDetails: $jobDetails, jobDescription: $jobDescription, appliedUser: $appliedUser){
+      datePosted: $datePosted, jobDetails: $jobDetails, jobDescription: $jobDescription, appliedUser: $appliedUser, creatorId: $creatorId){
         jobName
         companyName
         location
@@ -91,7 +92,10 @@ function CreateListing({ setListing, setUser, user }) {
     e.preventDefault();
 
     const res = await createListing({
-      variables: formData
+      variables: {
+        ...formData,
+        creatorId: user._id
+      } 
     });
 
     setListing(res.data.createListing);
