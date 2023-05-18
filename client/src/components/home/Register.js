@@ -151,7 +151,7 @@ function Register({setUser}) {
 
           <Flex justifyContent="center" alignItems="center" gap={3}>
             <Heading textAlign="center">Start Searching</Heading>
-            <Link as={RouterLink} to="/joblist" textDecoration="none">
+            <Link as={RouterLink} to="/joblistings" textDecoration="none">
               <ExternalLinkIcon boxSize="7" />
             </Link>
           </Flex>

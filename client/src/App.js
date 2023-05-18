@@ -82,7 +82,7 @@ function App() {
           }
         />
         <Route path="/createlisting" element={<CreateListing user={user} setUser={setUser} setListing={setListing}  />} />
-        <Route path="/joblistings" element={<JobListings setUser={setUser} />} />
+        <Route path="/joblistings" element={<JobListings user={user} setUser={setUser} />} />
         <Route path="/login" element={
             user ? (
               <Navigate to="/profile" user={user} setUser={setUser} setListing={setListing} />

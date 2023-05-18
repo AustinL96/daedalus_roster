@@ -26,7 +26,7 @@ import {
   Label,
 } from "recharts";
 
-function UserPage({ setUser }) {
+function UserPage({ user, setUser }) {
   const data = [
     { name: "Submitted", value: Math.floor(Math.random() * 5) },
     { name: "Opened", value: Math.floor(Math.random() * 5) },
@@ -60,6 +60,7 @@ function UserPage({ setUser }) {
       >
         <GridItem colSpan={12}>
           <Navigation
+            user={user}
             setUser={setUser}
             homepage="home"
             profile="profile"
