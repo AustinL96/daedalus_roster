@@ -15,7 +15,7 @@ const GET_USER = gql`
       email
     }
   }
-
+`
 
 const GET_LISTING = gql`
   query {
