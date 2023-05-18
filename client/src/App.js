@@ -8,6 +8,7 @@ import Login from "./components/home/Login";
 import UserPage from "./pages/UserPage";
 import CreateListing from "./pages/CreateListing";
 import JobListings from "./pages/JobListings";
+import MyJobs from "./pages/MyJobs";
 
 const GET_USER = gql`
   query {
@@ -88,6 +89,7 @@ function App() {
         />
         <Route path="/createlisting" element={<CreateListing user={user} setUser={setUser} setListing={setListing}  />} />
         <Route path="/joblistings" element={<JobListings user={user} setUser={setUser} />} />
+        <Route path="/myjobs" element={<MyJobs user={user} setUser={setUser} />} />
         <Route path="/login" element={
             user ? (
               <Navigate to="/profile" user={user} setUser={setUser} setListing={setListing} />
