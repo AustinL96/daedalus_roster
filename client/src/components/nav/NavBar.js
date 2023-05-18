@@ -10,48 +10,47 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
+import { useMutation, gql } from "@apollo/client";
 
-import { useMutation, gql } from '@apollo/client'
 const LOGOUT_USER = gql`
-  mutation LogoutUser{
-    logoutUser 
+  mutation LogoutUser {
+    logoutUser
   }
-`
+`;
 
-function Navigation({setUser}) {
-    const [logout] = useMutation(LOGOUT_USER)
+function Navigation({ user, setUser }) {
+  const [logout] = useMutation(LOGOUT_USER);
+  const theme = useTheme();
 
-    const handleLogout = async () => {
-      try {
-        await logout();
-        setUser(null)
-      } catch (error) {
-        console.log(error)
-      }
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const theme = useTheme();
+  const linkGradient = keyframes`
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  `;
 
-    const linkGradient = keyframes`
-      0% {
-        background-position: 0% 50%;
-      }
-      100% {
-        background-position: 100% 50%;
-      }
-    `;
-
-    const linkStyles = {
-      fontWeight: "bold",
-      transition: "font-size 0.3s",
-      bgGradient: `linear(to-t, ${theme.colors[200]},${theme.colors[200]}, ${theme.colors[400]})`,
-      bgClip: "text",
-      display: "inline-block",
-      backgroundSize: "200% 100%",
-      animation: `${linkGradient} 10s linear infinite`,
-      cursor: "pointer",
-      marginRight: "10px",
-    };
+  const linkStyles = {
+    fontWeight: "bold",
+    transition: "font-size 0.3s",
+    bgGradient: `linear(to-t, ${theme.colors[200]},${theme.colors[200]}, ${theme.colors[400]})`,
+    bgClip: "text",
+    display: "inline-block",
+    backgroundSize: "200% 100%",
+    animation: `${linkGradient} 10s linear infinite`,
+    cursor: "pointer",
+    marginRight: "10px",
+  };
 
   return (
     <Box position="sticky" top={0} zIndex={1}>
@@ -77,21 +76,27 @@ function Navigation({setUser}) {
           justify="flex-end"
           flex={1}
         >
-          <Link as={RouterLink} to="/" sx={linkStyles}>
-            Home
-          </Link>
-          <Link as={RouterLink} to="/profile" sx={linkStyles}>
-            My Profile
-          </Link>
-          <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
-            Create a Job
-          </Link>
-          <Link as={RouterLink} to="/joblistings" sx={linkStyles}>
-            Job Listings
-          </Link>
-          <Link as={RouterLink} onClick={handleLogout} to="/" sx={linkStyles}>
-            Logout
-          </Link>
+          {user !== null && (
+            <>
+              <Link as={RouterLink} to="/profile" sx={linkStyles}>
+                My Profile
+              </Link>
+              <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
+                Create a Job
+              </Link>
+              <Link as={RouterLink} to="/joblistings" sx={linkStyles}>
+                Job Listings
+              </Link>
+              <Link onClick={handleLogout} sx={linkStyles}>
+                Logout
+              </Link>
+            </>
+          )}
+          {user === null && (
+            <Link as={RouterLink} to="/" sx={linkStyles}>
+              Home
+            </Link>
+          )}
         </Stack>
       </Flex>
       <Divider />

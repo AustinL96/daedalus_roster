@@ -1,13 +1,43 @@
 import { Box, Button, Flex, Grid, GridItem, Heading, Image, Link, Text, Textarea, FormControl, Input, FormLabel, useTheme, theme, extendTheme, List, SimpleGrid, Badge, Spacer, Container, UnorderedList, OrderedList, ListItem, ListIcon, rezi } from "@chakra-ui/react";
-import { color } from "framer-motion";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import { useState } from 'react'
 import Navigation from "../components/nav/NavBar";
 
-function JobListings({setUser}) {
+
+// GraphQL query to fetch all listings
+const GET_ALL_LISTING = gql`
+  query GetAllListing {
+    getAllListing {
+      _id
+      jobName
+      companyName
+      location
+      salary
+      datePosted
+      jobDetails
+      jobDescription
+      appliedUser
+    }
+  }
+`;
+
+function JobListings({user, setUser}) {
     const theme = useTheme();
+    const { loading, error, data } = useQuery(GET_ALL_LISTING);
+    const [selectedListing, setSelectedListing] = useState(null);
+    const handleListingClick = (listing) => { // Step 2
+        setSelectedListing(listing);
+    };
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
 
     return (
         <Box bgGradient={`radial-gradient(circle, ${theme.colors['100']}, ${theme.colors['200']}, ${theme.colors['300']}, gray.900)`}>
-            <Navigation setUser={setUser}/>
+            <Navigation user={user} setUser={setUser}/>
             <Grid
                 templateColumns={{ base: "1fr", md: "1fr 1fr" }}
                 gap={4}
@@ -19,98 +49,35 @@ function JobListings({setUser}) {
                     maxH={{ base: "600px", md: "100vh" }}
                     
                     minHeight={{ lg: '130vh' }}>
-
                     <Box borderRadius="md" p={4}>
-                        <Heading fontSize="3xl" textAlign="center" mb={4}>
+                        <Heading fontSize="3xl" textAlign="center" mb={2}>
                             Listing
                         </Heading>
-
-                        <Box border="1px" borderRadius="md" p={4} mb={4}>
-                            <Heading fontSize="2xl">Job Name:</Heading>
+                    {data.getAllListing.map((listing) => (
+                        <Box key={listing._id} border="1px" borderRadius="md" p={4} mb={4} cursor="pointer"
+                        onClick={() => handleListingClick(listing)}>
+                            <Heading fontSize="2xl">{listing.jobName}</Heading>
                             <UnorderedList mt={4}>
                                 <ListItem>
-                                    <Heading fontSize="xl">Company: Google</Heading>
+                                <Heading fontSize="xl">Company: {listing.companyName}</Heading>
                                 </ListItem>
                                 <ListItem>
-                                    <Heading fontSize="xl">Location: Google World, USA</Heading>
+                                <Heading fontSize="xl">Location: {listing.location}</Heading>
                                 </ListItem>
                                 <ListItem>
-                                    <Heading fontSize="xl">Salary: $200,000</Heading>
+                                <Heading fontSize="xl">Salary: {listing.salary}</Heading>
                                 </ListItem>
                                 <ListItem>
-                                    <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
+                                <Heading fontSize="xl">Date Posted: {listing.datePosted}</Heading>
                                 </ListItem>
                             </UnorderedList>
                             <Heading fontSize="lg" mt={4}>
-                                Job Description:
+                                Job Details:
                             </Heading>
-                            <Text>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas
-                                explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore
-                                recusandae animi quae!
-                            </Text>
+                            <Text>{listing.jobDetails}</Text>
                         </Box>
-
-                        <Box border="1px" borderRadius="md" p={4} mb={4}>
-
-                            <Heading fontSize="2xl">Job Name:</Heading>
-                            <UnorderedList mt={4}>
-                                <ListItem>
-                                    <Heading fontSize="xl">Company: Google</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Location: Google World, USA</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Salary: $200,000</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
-                                </ListItem>
-                            </UnorderedList>
-
-                            <Heading fontSize="lg" mt={4}>
-                                Job Description:
-                            </Heading>
-
-                            <Text>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas
-                                explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore
-                                recusandae animi quae!
-                            </Text>
-                        </Box>
-
-                        <Box border="1px" borderRadius="md" p={4}>
-                            <Heading fontSize="2xl">Job Name:</Heading>
-
-                            <UnorderedList mt={4}>
-                                <ListItem>
-                                    <Heading fontSize="xl">Company: Google</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Location: Google World, USA</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Salary: $200,000</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
-                                </ListItem>
-                            </UnorderedList>
-
-                            <Heading fontSize="lg" mt={4}>
-                                Job Description:
-                            </Heading>
-
-                            <Text>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magnam consectetur expedita ipsa voluptas
-                                explicabo soluta necessitatibus atque. Dolorum odio aliquam rerum eos, praesentium quaerat accusantium labore
-                                recusandae animi quae!
-                            </Text>
-                        </Box>
-
+                    ))}
                     </Box>
-
                 </GridItem>
 
                 {/* Right Column */}
@@ -118,63 +85,40 @@ function JobListings({setUser}) {
 
                     <Box borderRadius="md" p={4}>
 
-                        <Heading fontSize="3xl" textAlign="center" mb={4}>
+                        <Heading fontSize="3xl" textAlign="center" mb={2}>
                             Job
                         </Heading>
-
                         <Box border="1px" borderRadius="md" p={4} mb={4}>
 
                             <Heading fontSize="2xl">Job Name:</Heading>
-
-                            <UnorderedList mt={4}>
-                                <ListItem>
-                                    <Heading fontSize="xl">Company: Apple</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Location: Silicon Valley</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Salary: $10.99</Heading>
-                                </ListItem>
-                                <ListItem>
-                                    <Heading fontSize="xl">Date Posted: 5/17/2023</Heading>
-                                </ListItem>
-                            </UnorderedList>
-
-                            <Heading fontSize="lg" mt={4}>
-                                Details
-                            </Heading>
-
-                            <Text mt={4}>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
-                                consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
-                                mollitia impedit?
-                            </Text>
-
-                            <Heading fontSize="lg" mt={4}>
-                                Description
-                            </Heading>
-
-                            <Text mt={4}>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
-                                consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
-                                mollitia impedit? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus incidunt aliquid
-                                consequuntur cupiditate quod earum alias, animi fugiat nemo eaque molestias dicta, ullam provident quas neque
-                                architecto. Ex, tempore facilis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum saepe
-                                exercitationem illo labore? Rem nobis ipsam harum officiis maxime? Est ut ipsa beatae exercitationem repudiandae
-                                adipisci iusto odit cumque tempora?l Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat voluptatem
-                                incidunt blanditiis, ullam laudantium, vero nostrum, expedita nisi odio unde architecto? Recusandae impedit ad
-                                autem quo! Enim veritatis deserunt eaque!
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repellendus odio delectus corporis molestias
-                                consequuntur facilis temporibus quae omnis iusto neque minima, dolorem sapiente veritatis dolores, esse earum
-                                mollitia impedit? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus incidunt aliquid
-                                consequuntur cupiditate quod earum alias, animi fugiat nemo eaque molestias dicta, ullam provident quas neque
-                                architecto. Ex, tempore facilis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum saepe
-                                exercitationem illo labore? Rem nobis ipsam harum officiis maxime? Est ut ipsa beatae exercitationem repudiandae
-                                adipisci iusto odit cumque tempora?l Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat voluptatem
-                                incidunt blanditiis, ullam laudantium, vero nostrum, expedita nisi odio unde architecto? Recusandae impedit ad
-                                autem quo! Enim veritatis deserunt eaque!
-                            </Text>
+                            {selectedListing ? ( // Step 4
+                            <>
+                                <UnorderedList mt={4}>
+                                    <ListItem>
+                                    <Heading fontSize="xl">Company: {selectedListing.companyName}</Heading>
+                                    </ListItem>
+                                    <ListItem>
+                                    <Heading fontSize="xl">Location: {selectedListing.location}</Heading>
+                                    </ListItem>
+                                    <ListItem>
+                                    <Heading fontSize="xl">Salary: {selectedListing.salary}</Heading>
+                                    </ListItem>
+                                    <ListItem>
+                                    <Heading fontSize="xl">Date Posted: {selectedListing.datePosted}</Heading>
+                                    </ListItem>
+                                </UnorderedList>
+                                <Heading fontSize="lg" mt={4}>
+                                    Details:
+                                </Heading>
+                                <Text mt={4}>{selectedListing.jobDetails}</Text>
+                                <Heading fontSize="lg" mt={4}>
+                                    Description:
+                                </Heading>
+                                <Text mt={4}>{selectedListing.jobDescription}</Text>
+                            </>
+                        ) : (
+                            <Text>No listing selected. Please select a job listing to view its data!</Text>
+                        )}
                         </Box>
                     </Box>
                 </GridItem>

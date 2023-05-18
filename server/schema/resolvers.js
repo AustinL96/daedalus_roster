@@ -40,10 +40,15 @@ const resolvers = {
       return listing; // Return the retrieved listing
     },
     // Resolver for retrieving all listings
-    getAllListing: async (parent, args, context, info) => {
-      const listings = await Listing.find(); // Retrieve all listings from the database
-      return listings; // Return the array of listings
-    },
+    getAllListing: async () => {
+      try {
+        const listings = await Listing.find();
+        return listings; // Return the listings array
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch listings');
+      }
+    }
     // Other query resolvers
   },
   Mutation: {
