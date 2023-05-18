@@ -26,7 +26,7 @@ const listingSchema = new Schema({
   },
   datePosted: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   jobDetails: {

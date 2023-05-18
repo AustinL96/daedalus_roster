@@ -15,14 +15,33 @@ const GET_USER = gql`
       email
     }
   }
-`;
+`
+
+
+const GET_LISTING = gql`
+  query {
+    getListing{
+    jobName
+    companyName
+    location
+    salary
+    datePosted
+    jobDetails
+    jobDescription
+    appliedUser
+    
+    }
+  }
+`
 
 function App() {
   const [user, setUser] = useState(null);
 
-  const [listing] = useState(null);
+  const [listing, setListing] = useState(null);
 
   const { data } = useQuery(GET_USER);
+
+  const { data:listData } = useQuery(GET_LISTING);
 
   useEffect(() => {
     console.log("something");
@@ -32,11 +51,20 @@ function App() {
     }
   }, [data]);
 
+useEffect(() =>{
+  console.log('list something');
+  if(listData){
+    console.log(listData);
+    setListing(listData.getListing);
+  }
+}, [listData]);
+
+
   return (
     <>
       <Routes>
           <Route exact path="/" element={user ? <Navigate to="/listing" /> : <Register setUser={setUser} />} />
-          <Route path="/listing" element={ !user ? <Navigate to="/" /> : <CreateListing user={user}  />} />
+          <Route path="/listing" element={ !user ? <Navigate to="/" /> : <CreateListing setListing={setListing}  />} />
           <Route exact path="/reg" element={<Register/> } />
 
       </Routes>

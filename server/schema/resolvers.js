@@ -46,13 +46,13 @@ const resolvers = {
         // Resolver logic for creating a user
         console.log(args)
         const user = await User.create(args);
-        const token = signToken(user._id)
+        const token = signToken(user._id);
         context.res.cookie('token', token, cookieOptions)
         return user;
       },
       createListing: async (parent, args, context, info) => {
         // Resolver logic for creating a listing
-        const listing = await Listing.create({args}); 
+        const listing = await Listing.create(args); 
 
         return listing;
       },

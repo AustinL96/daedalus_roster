@@ -22,26 +22,30 @@ import Navigation from "../components/nav/NavBar";
 import { useState } from 'react';
 import { Link as RouterLink } from "react-router-dom";
 
+
 import { useMutation, gql } from '@apollo/client'
+
 const CREATE_LISTING = gql`
-  mutation CreateUser(
-    $jobName: String,
-    $companyName: String,
-    $location: String,
-    $salary: Int,
-    $date: String,
-    $jobDetails: String,
-    $jobDescription: String,
-    $appliedUser: String
+  mutation CreateListing(
+    $jobName: String!,
+    $companyName: String!,
+    $location: String!,
+    $salary: Int!,
+    $datePosted: String,
+    $jobDetails: String!,
+    $jobDescription: String!,
+    $appliedUser: Schema.Types.ObjectId
     ){
       createListing(jobName: $jobName, companyName: $companyName, location: $location, salary: $salary,
-       jobDetails:$jobDetails, jobDescription: $jobDescription,){
+      datePosted: $datePosted, jobDetails: $jobDetails, jobDescription: $jobDescription, appliedUser: $appliedUser){
         jobName
         companyName
         location
         salary
+        datePosted
         jobDetails
         jobDescription
+        appliedUser
       }
     }
 `
@@ -49,7 +53,7 @@ const CREATE_LISTING = gql`
 
 
 
-function CreateListing({ user }) {
+function CreateListing({ setListing }) {
 
   const theme = useTheme();
 
@@ -58,15 +62,19 @@ function CreateListing({ user }) {
     companyName: '',
     location: '',
     salary: 0,
+    datePosted: '',
     jobDetails: '',
-    jobDescription: ''
+    jobDescription: '',
+    appliedUser: null
   })
-  const [createListing] = useMutation(CREATE_LISTING);
+
+  const [createListing] = useMutation(CREATE_LISTING)
 
   const handleInputChange = (e) => {
     console.log(e.target.value)
     let val;
     if(e.target.name === "salary"){
+      console.log('reached?')
        val = parseInt(e.target.value);
     }else{
        val = e.target.value;
@@ -85,14 +93,17 @@ function CreateListing({ user }) {
       variables: formData
     });
 
+    setListing(res.data.createListing);
 
     setFormData({
       jobName: '',
       companyName: '',
       location: '',
       salary: 0,
+      datePosted: '',
       jobDetails: '',
-      jobDescription: ''
+      jobDescription: '',
+      appliedUser: 'Placeholder'
     })
   }
 
@@ -197,7 +208,7 @@ function CreateListing({ user }) {
         </Box>
       </Flex>
     </Box>
-  );
+  )
 }
 
 export default CreateListing;
