@@ -26,7 +26,7 @@ function Navigation({ homepage, profile, dashboard, logout }) {
   const linkStyles = {
     fontWeight: "bold",
     transition: "font-size 0.3s",
-    bgGradient: `linear(to-t, ${theme.colors[500]},${theme.colors[200]}, ${theme.colors[400]})`,
+    bgGradient: `linear(to-t, ${theme.colors[500]},${theme.colors[500]}, ${theme.colors[400]})`,
     bgClip: "text",
     display: "inline-block",
     backgroundSize: "200% 100%",
@@ -36,13 +36,18 @@ function Navigation({ homepage, profile, dashboard, logout }) {
   };
 
   return (
-    <Box position="sticky" top={0} zIndex={1}>
+    <Box
+      position="sticky"
+      top={0}
+      zIndex={1}
+      style={{ background: theme.colors[400] }}
+    >
       <Flex
         direction={{ base: "column", lg: "row" }}
         align={{ base: "stretch", lg: "center" }}
         justify={{ base: "center", md: "space-between" }}
       >
-        <Heading style={{ color: theme.colors[200] }}>Daedalus.Roster</Heading>
+        <Heading style={{ color: theme.colors[500] }}>Daedalus.Roster</Heading>
         <nav>
           <Stack direction={"row"} spacing={6} mr={3}>
             <Link as={RouterLink} to="/" sx={linkStyles}>

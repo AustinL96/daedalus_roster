@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Grid, GridItem, Box, Text, Heading } from "@chakra-ui/react";
-import { useTheme } from "@chakra-ui/react";
+import { Grid, GridItem, Box, Heading } from "@chakra-ui/react";
+import { useTheme, Divider } from "@chakra-ui/react";
 
 function GreetUser({ userName }) {
   const theme = useTheme();
@@ -22,20 +22,23 @@ function GreetUser({ userName }) {
       setGreetingStyle({ color: theme.colors[400] });
     } else {
       setTimeOfDay("You're up Late");
-      setGreetingStyle({ color: theme.colors[500], fontSize: "25px" });
+      setGreetingStyle({ color: theme.colors[100], font: theme.fonts.heading });
     }
   }, []);
 
   return (
-    <Grid>
-      <GridItem>
-        <Box style={greetingStyle}>
-          <Heading>
-            {timeOfDay}, {userName}! We wish you well on your hunt!{" "}
-          </Heading>
-        </Box>
-      </GridItem>
-    </Grid>
+    <>
+      <Grid mt="10%">
+        <GridItem>
+          <Box style={greetingStyle}>
+            <Heading>
+              {timeOfDay}, {userName}! <br />
+              We wish you well on your hunt!{" "}
+            </Heading>
+          </Box>
+        </GridItem>
+      </Grid>
+    </>
   );
 }
 
