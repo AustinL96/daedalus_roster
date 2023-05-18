@@ -85,10 +85,14 @@ const resolvers = {
       context.res.clearCookie('token'); // Clear the 'token' cookie in the response
       return true; // Return true to indicate successful logout
     },
-    // Resolver for creating a listing
     createListing: async (parent, args, context, info) => {
-      const listing = await Listing.create(args); // Create a new listing with the provided arguments
-      return listing; // Return the created listing
+      // Get the ID of the user who created the listing
+      const userId  = context;
+      
+      // Create the listing with the provided arguments and associate it with the creator's ID
+      const listing = await Listing.create({ ...args, creatorId: userId.user_id });
+      console.log(listing)
+      return listing;
     },
     updateUser: async (_, args, context, ____) => {
       try {
