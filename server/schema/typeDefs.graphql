@@ -12,7 +12,7 @@ type Listing{
     companyName: String
     location: String
     salary: Int
-    date: String
+    datePosted: String
     jobDetails: String
     jobDescription: String
     appliedUser: String
@@ -33,8 +33,7 @@ type Query {
 
 type Mutation{
     createUser(username: String!, email: String!, password: String!): User
-    createListing(jobName: String, companyName: String, location: String, salary: Int, date: String, jobDetails: String, jobDescription: String, appliedUser: String, _id: ID) 
-    : Auth 
+    createListing(jobName: String!, companyName: String!, location: String!, salary: Int!, datePosted: String, jobDetails: String!, jobDescription: String!, appliedUser: String) : Listing 
     
 }
 

@@ -26,7 +26,7 @@ const listingSchema = new Schema({
   },
   datePosted: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   jobDetails: {
@@ -41,10 +41,16 @@ const listingSchema = new Schema({
   },
   appliedUser: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'user'
+      type: String,
+      trim:true
     }
   ]
+  // appliedUser: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'user'
+  //   }
+  // ]
 });
 
 
