@@ -34,7 +34,7 @@ const CREATE_LISTING = gql`
     $datePosted: String,
     $jobDetails: String!,
     $jobDescription: String!,
-    $appliedUser: Schema.Types.ObjectId
+    $appliedUser: String
     ){
       createListing(jobName: $jobName, companyName: $companyName, location: $location, salary: $salary,
       datePosted: $datePosted, jobDetails: $jobDetails, jobDescription: $jobDescription, appliedUser: $appliedUser){

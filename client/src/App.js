@@ -64,7 +64,7 @@ useEffect(() =>{
     <>
       <Routes>
           <Route exact path="/" element={user ? <Navigate to="/createlisting" /> : <Register setUser={setUser} />} />
-          <Route path="/createlisting" element={ !user ? <Navigate to="/" /> : <CreateListing user={user} />} />
+          <Route path="/createlisting" element={ !user ? <Navigate to="/" /> : <CreateListing user={user} setListing={setListing} />} />
           <Route path="/profile" element={<UserPage />} />
           <Route path="/joblist" element={<Listing />} />
       </Routes>
