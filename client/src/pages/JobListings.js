@@ -21,10 +21,25 @@ const GET_ALL_LISTING = gql`
   }
 `;
 
+// GraphQL mutation to store a user to a job listing
+const APPLY_TO_LISTING = gql`
+  mutation ApplyToListing($listingId: ID!, $userId: ID!) {
+    applyToListing(listingId: $listingId, userId: $userId)
+  }
+`;
+
 function JobListings({user, setUser}) {
     const theme = useTheme();
     const { loading, error, data } = useQuery(GET_ALL_LISTING);
     const [selectedListing, setSelectedListing] = useState(null);
+    const [applyToListing] = useMutation(APPLY_TO_LISTING, {
+        onCompleted: (data) => {
+            console.log(data);
+        },
+        onError: (error) => {
+            console.log(error);
+        }
+    })
     const handleListingClick = (listing) => { // Step 2
         setSelectedListing(listing);
     };
@@ -34,6 +49,17 @@ function JobListings({user, setUser}) {
     if (error) {
         return <p>Error: {error.message}</p>;
     }
+
+
+    const handleApply = (listingId) => {
+        const userId = user._id;
+        applyToListing({
+            variables: {
+                listingId, userId
+            }
+        })
+    }
+
 
     return (
         <Box bgGradient={`radial-gradient(circle, ${theme.colors['100']}, ${theme.colors['200']}, ${theme.colors['300']}, gray.900)`}>
@@ -130,7 +156,7 @@ function JobListings({user, setUser}) {
                                 </Heading>
                                 <Text mt={4} color={"white"} style={{ whiteSpace: "pre-wrap" }}>{selectedListing.jobDescription}</Text>
                                 {user && (
-                                    <Button type="submit" bg={theme.colors[100]} color="gray.900">
+                                    <Button type="submit" bg={theme.colors[100]} color="gray.900" onClick={() => handleApply(selectedListing._id)}>
                                         Apply Here
                                     </Button>
                                 )}

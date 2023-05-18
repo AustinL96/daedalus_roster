@@ -50,4 +50,5 @@ type Mutation{
         appliedUser: String
         ) : Listing 
     logoutUser: Boolean
+    applyToListing(listingId: ID!, userId: ID!): String!
 }
