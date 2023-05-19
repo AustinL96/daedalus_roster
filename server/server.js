@@ -11,6 +11,7 @@ const { readFileSync } = require('fs');
 const resolvers = require('./schema/resolvers');
 const cookieParser = require('cookie-parser');
 const typeDefs = readFileSync('./schema/typeDefs.graphql', 'utf8');
+const path = require('path');
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -20,7 +21,7 @@ const PORT = process.env.PORT || 3333;
 
 app.use(express.json());
 
-app.use(express.static('../client/dist'));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(cookieParser())
 // const api_routes = require('./routes/api_routes');
@@ -47,6 +48,10 @@ async function startServer() {
   });
   // Ensure we wait for our server to start
   await server.start();
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
 
   app.use(
     '/',

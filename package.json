@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "cd ./client && npm run build",
+    "start": "cd ./server && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install:client": "cd ./client && npm i",
