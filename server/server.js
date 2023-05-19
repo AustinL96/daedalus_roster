@@ -53,11 +53,18 @@ async function startServer() {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
+  const whitelist = ['https://desolate-wave-03544.herokuapp.com', 'http://localhost:3000'];
   app.use(
     '/',
     cors({
       credentials: true,
-      origin: ['https://desolate-wave-03544.herokuapp.com', 'http://localhost:3000']
+      origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
     }),
     // expressMiddleware accepts the same arguments:
     // an Apollo Server instance and optional configuration options
