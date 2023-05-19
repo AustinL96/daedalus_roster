@@ -46,11 +46,15 @@ function MyJobs({ user, setUser }) {
     const { loading, error, data } = useQuery(GET_LISTINGS_BY_CREATOR);
 
     const [selectedListing, setSelectedListing] = useState(null);
-
+    const [selectedUser, setSelectedUser] = useState(null);
+    // For clicking on the listings on the left grid item to pop up on the right
     const handleListingClick = (listing) => {
         setSelectedListing(listing);
     };
-
+    // For rendering user's profile data when you click on a list of applied users on the right grid
+    const handleUserClick = (user) => {
+        setSelectedUser(user);
+      };
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -152,39 +156,45 @@ function MyJobs({ user, setUser }) {
                                     <Heading fontSize="lg" mt={4}>
                                         Applied Users:
                                     </Heading>
-                                    <Box>
+                                    {selectedUser && (
+                                        <Box>
                                         <Heading textAlign={"center"}>
-                                            Jimbo the First
+                                            {selectedUser.username}
                                         </Heading>
                                         <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }}>
                                             <GridItem overflowY="auto">
-                                                <Heading textAlign={"center"}>About Me</Heading>
-                                                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                                            <Heading textAlign={"center"}>About Me</Heading>
+                                            <Text>{selectedUser.aboutMe}</Text>
                                             </GridItem>
                                             <GridItem overflowY="auto">
-                                                <Heading textAlign={"center"}>Experience</Heading>
-                                                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                                            <Heading textAlign={"center"}>Experience</Heading>
+                                            <Text>{selectedUser.experience}</Text>
                                             </GridItem>
                                             <GridItem overflowY="auto">
-                                                <Heading textAlign={"center"}>Skills</Heading>
-                                                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                                            <Heading textAlign={"center"}>Skills</Heading>
+                                            <Text>{selectedUser.skills}</Text>
                                             </GridItem>
                                             <GridItem overflowY="auto">
-                                                <Heading textAlign={"center"}>Education/Licenses</Heading>
-                                                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                                            <Heading textAlign={"center"}>Education/Licenses</Heading>
+                                            <Text>{selectedUser.EduAndLic}</Text>
                                             </GridItem>
                                         </Grid>
-                                    </Box>
+                                        </Box>
+                                    )}
                                     <Divider />
-                                    <Box>
-                                        <Text>Jimbo</Text>
-                                        <Text>Jimbo</Text>
-                                        <Text>Jimbo</Text>
-                                        <Text>Jimbo</Text>
-                                        <Text>Jimbo</Text>
-                                        <Text>Jimbo</Text>
-                                        <Text>Jimbo</Text>
-                                    </Box>
+                                    {selectedListing.appliedUsers.map((user) => (
+                                            <Box
+                                            key={user.username}
+                                            p={2}
+                                            my={2}
+                                            bg={selectedUser === user ? "blue.500" : "gray.700"}
+                                            borderRadius="md"
+                                            cursor="pointer"
+                                            onClick={() => handleUserClick(user)}
+                                            >
+                                            <Text>{user.username}</Text>
+                                        </Box>
+                                    ))}
                                 </>
                             ) : (
                                 <Text>No listing selected. Please select a job listing to view its data!</Text>
