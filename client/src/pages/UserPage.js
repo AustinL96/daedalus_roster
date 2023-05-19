@@ -11,6 +11,8 @@ import {
   Grid,
   GridItem,
   Button,
+  Toast,
+  useToast
 } from "@chakra-ui/react";
 import Navigation from "../components/nav/NavBar";
 
@@ -91,7 +93,6 @@ function UserPage({user, setUser}) {
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
-
     const res = await updateUser({
       variables: formData
     });
@@ -102,7 +103,7 @@ function UserPage({user, setUser}) {
       skills:  res.data.updateUser.skills, // Update with the saved value
       EduAndLic:  res.data.updateUser.EduAndLic, // Update with the saved value
     })
-
+    
   }
 
 

@@ -7,6 +7,8 @@ import {
   useTheme,
   Stack,
   Text,
+  Toast,
+  useToast
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { keyframes } from "@emotion/react";
@@ -22,6 +24,8 @@ function Navigation({ user, setUser }) {
   const [logout] = useMutation(LOGOUT_USER);
   const theme = useTheme();
 
+  const toast = useToast();
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -29,6 +33,13 @@ function Navigation({ user, setUser }) {
     } catch (error) {
       console.log(error);
     }
+    toast({
+      title: 'Logged out',
+      description: 'Successfully logged out',
+      duration: 5000,
+      isCloseable: true,
+      position: 'top'
+    })
   };
 
   const linkGradient = keyframes`
