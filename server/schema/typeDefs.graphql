@@ -31,6 +31,8 @@ type Query {
   getUser: User 
   getListing(id: ID): Listing
   getAllListing: [Listing]
+
+  getAllListingsByCreator(creatorId: ID!): [Listing]
 }
 
 type Mutation{

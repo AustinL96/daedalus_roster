@@ -17,9 +17,9 @@ import Navigation from "../components/nav/NavBar";
 
 
 // GraphQL query to fetch all listings
-const GET_ALL_LISTING = gql`
-  query GetAllListing {
-    getAllListing {
+const GET_LISTINGS_BY_CREATOR = gql`
+  query GetListingsByCreator($creatorId: ID!) {
+    getAllListingsByCreator(creatorId: $creatorId) {
       _id
       jobName
       companyName
@@ -29,20 +29,30 @@ const GET_ALL_LISTING = gql`
       jobDetails
       jobDescription
       appliedUser
+      creatorId
+      appliedUsers
     }
   }
 `;
 
 function MyJobs({user, setUser}) {
     const theme = useTheme();
-    const { loading, error, data } = useQuery(GET_ALL_LISTING);
+    const creatorId = user._id;
+    console.log("creatorId:", creatorId);
+    const { loading, error, data } = useQuery(GET_LISTINGS_BY_CREATOR, {
+        variables: { creatorId },
+    });
+
     const [selectedListing, setSelectedListing] = useState(null);
-    const handleListingClick = (listing) => { // Step 2
+
+    const handleListingClick = (listing) => {
         setSelectedListing(listing);
     };
+
     if (loading) {
         return <p>Loading...</p>;
     }
+
     if (error) {
         return <p>Error: {error.message}</p>;
     }
@@ -65,7 +75,7 @@ function MyJobs({user, setUser}) {
                         <Heading fontSize="3xl" textAlign="center" mb={2}>
                             Listing
                         </Heading>
-                    {data.getAllListing.map((listing) => (
+                    {data && data.getAllListingsByCreator.map((listing) => (
                         <Box 
                         key={listing._id} 
                         cursor="pointer" 
