@@ -32,7 +32,7 @@ const theme = extendTheme({ fonts, colors });
 
 //*** Server stuff */
 const httpLink = new HttpLink({
-  uri: "http://localhost:3333",
+  uri: process.env.NODE_ENV === "production" ? "https://desolate-wave-03544.herokuapp.com" : "http://localhost:3333",
 
   //makes sure it includes all cookies
   credentials: "include",
