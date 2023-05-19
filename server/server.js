@@ -57,7 +57,7 @@ async function startServer() {
     '/',
     cors({
       credentials: true,
-      origin: 'http://localhost:3000'
+      origin: ['https://desolate-wave-03544.herokuapp.com', 'http://localhost:3000']
     }),
     // expressMiddleware accepts the same arguments:
     // an Apollo Server instance and optional configuration options
