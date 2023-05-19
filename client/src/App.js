@@ -69,11 +69,7 @@ function App() {
           exact
           path="/"
           element={
-            user ? (
-              <Navigate to="/profile"   />
-            ) : (
-              <Register setUser={setUser} />
-            )
+            user ? <Navigate to="/profile" /> : <Register setUser={setUser} />
           }
         />
         <Route
@@ -86,15 +82,35 @@ function App() {
             )
           }
         />
-        <Route path="/createlisting" element={<CreateListing user={user} setUser={setUser} setListing={setListing}  />} />
-        <Route path="/joblistings" element={<JobListings user={user} setUser={setUser} />} />
-        <Route path="/login" element={
+        <Route
+          path="/createlisting"
+          element={
+            <CreateListing
+              user={user}
+              setUser={setUser}
+              setListing={setListing}
+            />
+          }
+        />
+        <Route
+          path="/joblistings"
+          element={<JobListings user={user} setUser={setUser} />}
+        />
+        <Route
+          path="/login"
+          element={
             user ? (
-              <Navigate to="/profile" user={user} setUser={setUser} setListing={setListing} />
+              <Navigate
+                to="/profile"
+                user={user}
+                setUser={setUser}
+                setListing={setListing}
+              />
             ) : (
               <Login setUser={setUser} />
             )
-          } />
+          }
+        />
       </Routes>
     </>
   );
