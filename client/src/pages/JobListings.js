@@ -41,10 +41,10 @@ function JobListings({ user, setUser }) {
     const [selectedListing, setSelectedListing] = useState(null);
     const [applyToListing] = useMutation(APPLY_TO_LISTING, {
         onCompleted: (data) => {
-            console.log(data);
+            // console.log(data);
         },
         onError: (error) => {
-            console.log(error);
+            // console.log(error);
         }
     })
     const handleListingClick = (listing) => { // Step 2

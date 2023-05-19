@@ -80,10 +80,10 @@ function CreateListing({ setListing, setUser, user }) {
   const [createListing] = useMutation(CREATE_LISTING)
 
   const handleInputChange = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     let val;
     if (e.target.name === "salary") {
-      console.log('reached?')
+      // console.log('reached?')
       val = parseInt(e.target.value);
     } else {
       val = e.target.value;
