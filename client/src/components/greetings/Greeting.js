@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Grid, GridItem, Box, Heading } from "@chakra-ui/react";
 import { useTheme, Divider } from "@chakra-ui/react";
 
-function GreetUser({ userName }) {
+function GreetUser({ user }) {
   const theme = useTheme();
 
   const [timeOfDay, setTimeOfDay] = useState("");
@@ -27,18 +27,12 @@ function GreetUser({ userName }) {
   }, []);
 
   return (
-    <>
-      <Grid mt="10%">
-        <GridItem>
-          <Box style={greetingStyle}>
-            <Heading>
-              {timeOfDay}, {userName}! <br />
-              We wish you well on your hunt!{" "}
-            </Heading>
-          </Box>
-        </GridItem>
-      </Grid>
-    </>
+    <Box style={greetingStyle}>
+      <Heading color="gray.900" textAlign={"center"} >
+        {timeOfDay}, {user.username}! <br />
+        We wish you well on your hunt!{" "}
+      </Heading>
+    </Box>
   );
 }
 

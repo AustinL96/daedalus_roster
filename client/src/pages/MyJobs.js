@@ -1,13 +1,25 @@
-import { Box, Button, Flex, Grid, GridItem, Heading, Image, Link, Text, Textarea, FormControl, Input, FormLabel, useTheme, theme, extendTheme, List, SimpleGrid, Badge, Spacer, Container, UnorderedList, OrderedList, ListItem, ListIcon, rezi } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Divider,
+    Grid,
+    GridItem,
+    Heading,
+    ListItem,
+    UnorderedList,
+    useTheme,
+    Stack,
+    Text,
+} from "@chakra-ui/react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { useState } from 'react'
 import Navigation from "../components/nav/NavBar";
 
 
 // GraphQL query to fetch all listings
-const GET_ALL_LISTING = gql`
-  query GetAllListing {
-    getAllListing {
+const GET_LISTINGS_BY_CREATOR = gql`
+  query GetListingsByCreator {
+    getAllListingsByCreator {
       _id
       jobName
       companyName
@@ -24,49 +36,32 @@ const GET_ALL_LISTING = gql`
         skills
         EduAndLic
       }
+      creatorId
     }
   }
 `;
 
-// GraphQL mutation to store a user to a job listing
-const APPLY_TO_LISTING = gql`
-  mutation ApplyToListing($listingId: ID!, $userId: ID!) {
-    applyToListing(listingId: $listingId, userId: $userId)
-  }
-`;
-
-function JobListings({ user, setUser }) {
+function MyJobs({ user, setUser }) {
     const theme = useTheme();
-    const { loading, error, data } = useQuery(GET_ALL_LISTING);
+    const { loading, error, data } = useQuery(GET_LISTINGS_BY_CREATOR);
+
     const [selectedListing, setSelectedListing] = useState(null);
-    const [applyToListing] = useMutation(APPLY_TO_LISTING, {
-        onCompleted: (data) => {
-            console.log(data);
-        },
-        onError: (error) => {
-            console.log(error);
-        }
-    })
-    const handleListingClick = (listing) => { // Step 2
+    const [selectedUser, setSelectedUser] = useState(null);
+    // For clicking on the listings on the left grid item to pop up on the right
+    const handleListingClick = (listing) => {
         setSelectedListing(listing);
     };
+    // For rendering user's profile data when you click on a list of applied users on the right grid
+    const handleUserClick = (user) => {
+        setSelectedUser(user);
+      };
     if (loading) {
         return <p>Loading...</p>;
     }
+
     if (error) {
         return <p>Error: {error.message}</p>;
     }
-
-
-    const handleApply = (listingId) => {
-        const userId = user._id;
-        applyToListing({
-            variables: {
-                listingId, userId
-            }
-        })
-    }
-
 
     return (
         <Box bgGradient={`radial-gradient(circle, ${theme.colors['100']}, ${theme.colors['200']}, ${theme.colors['300']}, gray.900)`}>
@@ -86,7 +81,7 @@ function JobListings({ user, setUser }) {
                         <Heading fontSize="3xl" textAlign="center" mb={2}>
                             Listing
                         </Heading>
-                        {data.getAllListing.map((listing) => (
+                        {data && data.getAllListingsByCreator.map((listing) => (
                             <Box
                                 key={listing._id}
                                 cursor="pointer"
@@ -97,7 +92,7 @@ function JobListings({ user, setUser }) {
                                 onClick={() => handleListingClick(listing)}
                                 border={`1px solid ${theme.colors[200]}`} borderRadius="md"
                             >
-                                <Heading fontSize="2xl">{listing.jobName}</Heading>
+                                <Heading fontSize="2xl">Job Name: {listing.jobName}</Heading>
                                 <UnorderedList mt={4}>
                                     <ListItem>
                                         <Heading fontSize="xl">Company: {listing.companyName}</Heading>
@@ -139,7 +134,7 @@ function JobListings({ user, setUser }) {
 
                             {selectedListing ? ( // Step 4
                                 <>
-                                    <Heading fontSize="2xl">Job Name: {selectedListing.jobName} </Heading>
+                                    <Heading fontSize="2xl">Job Name: {selectedListing.jobName}</Heading>
                                     <UnorderedList mt={4}>
                                         <ListItem>
                                             <Heading fontSize="xl">Company: {selectedListing.companyName}</Heading>
@@ -159,14 +154,47 @@ function JobListings({ user, setUser }) {
                                     </Heading>
                                     <Text mt={4} color={"white"} style={{ whiteSpace: "pre-wrap" }}>{selectedListing.jobDetails}</Text>
                                     <Heading fontSize="lg" mt={4}>
-                                        Description:
+                                        Applied Users:
                                     </Heading>
-                                    <Text mt={4} color={"white"} style={{ whiteSpace: "pre-wrap" }}>{selectedListing.jobDescription}</Text>
-                                    {user && (
-                                        <Button type="submit" bg={theme.colors[100]} color="gray.900" onClick={() => handleApply(selectedListing._id)}>
-                                            Apply Here
-                                        </Button>
+                                    {selectedUser && (
+                                        <Box>
+                                        <Heading textAlign={"center"}>
+                                            {selectedUser.username}
+                                        </Heading>
+                                        <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }}>
+                                            <GridItem overflowY="auto">
+                                            <Heading textAlign={"center"}>About Me</Heading>
+                                            <Text>{selectedUser.aboutMe}</Text>
+                                            </GridItem>
+                                            <GridItem overflowY="auto">
+                                            <Heading textAlign={"center"}>Experience</Heading>
+                                            <Text>{selectedUser.experience}</Text>
+                                            </GridItem>
+                                            <GridItem overflowY="auto">
+                                            <Heading textAlign={"center"}>Skills</Heading>
+                                            <Text>{selectedUser.skills}</Text>
+                                            </GridItem>
+                                            <GridItem overflowY="auto">
+                                            <Heading textAlign={"center"}>Education/Licenses</Heading>
+                                            <Text>{selectedUser.EduAndLic}</Text>
+                                            </GridItem>
+                                        </Grid>
+                                        </Box>
                                     )}
+                                    <Divider />
+                                    {selectedListing.appliedUsers.map((user) => (
+                                            <Box
+                                            key={user.username}
+                                            p={2}
+                                            my={2}
+                                            bg={selectedUser === user ? "blue.500" : "gray.700"}
+                                            borderRadius="md"
+                                            cursor="pointer"
+                                            onClick={() => handleUserClick(user)}
+                                            >
+                                            <Text>{user.username}</Text>
+                                        </Box>
+                                    ))}
                                 </>
                             ) : (
                                 <Text>No listing selected. Please select a job listing to view its data!</Text>
@@ -181,4 +209,4 @@ function JobListings({ user, setUser }) {
     );
 }
 
-export default JobListings;
+export default MyJobs;

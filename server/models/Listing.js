@@ -18,7 +18,7 @@ const listingSchema = new Schema({
     type: String,
     required: true,
     trim: true
-  },  
+  },
   salary: {
     type: String,
     required: true,
@@ -39,18 +39,17 @@ const listingSchema = new Schema({
     required: true,
     trim: true
   },
-  appliedUser: [
+  appliedUsers: [
     {
-      type: String,
-      trim:true
-    }
-  ]
-  // appliedUser: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'user'
-  //   }
-  // ]
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+  ],
+  creatorId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'user'
+  }
 });
 
 

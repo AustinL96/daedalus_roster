@@ -35,10 +35,11 @@ const CREATE_LISTING = gql`
     $datePosted: String,
     $jobDetails: String!,
     $jobDescription: String!,
-    $appliedUser: String
+    $appliedUser: String,
+    $creatorId: ID!
     ){
       createListing(jobName: $jobName, companyName: $companyName, location: $location, salary: $salary,
-      datePosted: $datePosted, jobDetails: $jobDetails, jobDescription: $jobDescription, appliedUser: $appliedUser){
+      datePosted: $datePosted, jobDetails: $jobDetails, jobDescription: $jobDescription, appliedUser: $appliedUser, creatorId: $creatorId){
         jobName
         companyName
         location
@@ -46,7 +47,14 @@ const CREATE_LISTING = gql`
         datePosted
         jobDetails
         jobDescription
-        appliedUser
+        appliedUsers {
+          username
+          email
+          aboutMe
+          experience
+          skills
+          EduAndLic
+        }
       }
     }
 `
@@ -91,7 +99,10 @@ function CreateListing({ setListing, setUser, user }) {
     e.preventDefault();
 
     const res = await createListing({
-      variables: formData
+      variables: {
+        ...formData,
+        creatorId: user._id
+      }
     });
 
     setListing(res.data.createListing);
@@ -104,7 +115,7 @@ function CreateListing({ setListing, setUser, user }) {
       datePosted: '',
       jobDetails: '',
       jobDescription: '',
-      appliedUser: 'Placeholder'
+      appliedUser: ''
     })
   }
 
@@ -161,7 +172,7 @@ function CreateListing({ setListing, setUser, user }) {
             <FormControl isRequired>
               <FormLabel>Job Description:</FormLabel>
               <Textarea
-                value={formData.jobDescription} 
+                value={formData.jobDescription}
                 onChange={handleInputChange}
                 type="text"
                 name="jobDescription"

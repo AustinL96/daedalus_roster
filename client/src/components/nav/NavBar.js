@@ -81,6 +81,9 @@ function Navigation({ user, setUser }) {
               <Link as={RouterLink} to="/profile" sx={linkStyles}>
                 My Profile
               </Link>
+              <Link as={RouterLink} to="/myjobs" sx={linkStyles}>
+                My Job Listings
+              </Link>
               <Link as={RouterLink} to="/createlisting" sx={linkStyles}>
                 Create a Job
               </Link>
