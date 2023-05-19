@@ -61,14 +61,14 @@ function UserPage({ user, setUser }) {
   const labelColor = theme.colors[500];
 
   // let [value, setValue] = React.useState("");
-
+  console.log(user);
   const [formData, setFormData] = useState({
-    userName: user.userName,
-    email: user.email,
-    aboutMe: user.aboutMe,
-    experience: user.experience,
-    skills: user.skills,
-    EduAndLic: user.EduAndLic,
+    userName: user.userName || '',
+    email: user.email || '',
+    aboutMe: user.aboutMe || '',
+    experience: user.experience || '',
+    skills: user.skills || '',
+    EduAndLic: user.EduAndLic || '',
   });
 
 

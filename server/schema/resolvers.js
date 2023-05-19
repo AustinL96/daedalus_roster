@@ -12,11 +12,12 @@ const cookieOptions = {
 
 // Function to sign a JWT token
 function signToken(user_id) {
+  console.log(process.env.JWT_SECRET)
   return sign(
     {
       user_id,
     },
-    process.env.JWT_SECRET, // JWT secret key used for signing the token
+    'asdfasdflkj', // JWT secret key used for signing the token
     {
       expiresIn: '1d', // Token expiration set to 1 day
     }

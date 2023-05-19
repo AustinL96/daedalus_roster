@@ -26,19 +26,19 @@ const userSchema = new Schema({
   },
   aboutMe: {
     type: String,
-    max: 500    
-  },
-  experience: {
-    type:String,
-    max:500
-  },
-  skills:{
-    type:String,
     max: 500
   },
-  EduAndLic:{
-    type:String,
-    max:500
+  experience: {
+    type: String,
+    max: 500
+  },
+  skills: {
+    type: String,
+    max: 500
+  },
+  EduAndLic: {
+    type: String,
+    max: 500
   },
   appliedTo: [
     {

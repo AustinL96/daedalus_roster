@@ -16,7 +16,6 @@ const path = require('path');
 const app = express();
 const httpServer = http.createServer(app);
 
-
 const PORT = process.env.PORT || 3333;
 
 app.use(express.json());
@@ -34,6 +33,7 @@ function authenticate({ req, res }) {
   const token = req.cookies.token;
   if (!token)
     return { req, res }
+
   const decoded = decodeToken(token)
   if (!decoded)
     return { req, res }
