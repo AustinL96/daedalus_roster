@@ -48,7 +48,16 @@ const resolvers = {
         console.error(error);
         throw new Error('Failed to fetch listings');
       }
-    }
+    },
+    getAllListingsByCreator: async (_, { creatorId }) => {
+      console.log("Creator ID:", creatorId);
+      try {
+        const listings = await Listing.find({ creatorId }).populate('appliedUsers');
+        return listings;
+      } catch (error) {
+        throw new Error(`Failed to fetch listings by creator: ${error.message}`);
+      }
+    },
     // Other query resolvers
   },
   Mutation: {
@@ -130,7 +139,7 @@ const resolvers = {
         }
     
         // Add the user to the appliedUsers array
-        listing.appliedUsers.push(user);
+        listing.appliedUsers.push(userId);
     
         // Save the updated listing
         await listing.save();

@@ -46,7 +46,9 @@ const listingSchema = new Schema({
     },
   ],
   creatorId: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   }
 });
 
