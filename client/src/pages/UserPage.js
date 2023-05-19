@@ -4,6 +4,7 @@
 import React from "react";
 import {
   Box,
+  Flex,
   useTheme,
   Text,
   Textarea,
@@ -41,18 +42,6 @@ const UPDATE_USER = gql`
     }
   }
 `
-// const GET_USER = gql`
-//   query GetUser{
-//     getUser {
-//       username
-//       email
-//       aboutMe
-//       experience
-//       skills
-//       EduAndLic
-//     }
-//   }
-// `;
 
 function UserPage({user, setUser}) {
 
@@ -72,12 +61,12 @@ function UserPage({user, setUser}) {
   // let [value, setValue] = React.useState("");
 
   const [formData, setFormData] = useState({
-    userName:user.userName || '',
-    email: user.email|| '',
-    aboutMe: user.aboutMe || '' ,
-    experience: user.experience ||'',
-    skills: user.skills ||'',
-    EduAndLic: user.EduAndLic ||'',
+    userName:user.userName,
+    email: user.email,
+    aboutMe: user.aboutMe  ,
+    experience: user.experience,
+    skills: user.skills ,
+    EduAndLic: user.EduAndLic ,
   });
 
 
@@ -108,152 +97,144 @@ function UserPage({user, setUser}) {
     });
     setUser(res.data.updateUser)
     setFormData({
-      userName: user.userName || '',
-      email: user.email || '',
-      aboutMe: res.data.updateUser.aboutMe || '', // Update with the saved value
-      experience: res.data.updateUser.experience || '', // Update with the saved value
-      skills: res.data.updateUser.skills || '', // Update with the saved value
-      EduAndLic: res.data.updateUser.EduAndLic || '', // Update with the saved value
+      aboutMe: res.data.updateUser.aboutMe , // Update with the saved value
+      experience:  res.data.updateUser.experience  , // Update with the saved value
+      skills:  res.data.updateUser.skills, // Update with the saved value
+      EduAndLic:  res.data.updateUser.EduAndLic, // Update with the saved value
     })
 
   }
 
 
   return (
-    <>
+    <Box bgGradient="linear(to-b, , #C6803Cff, #8A6543ff, #17190Dff)">
+      <Navigation
+        user={user}
+        setUser={setUser}
+        homepage="home"
+        profile="profile"
+        dashboard="dashboard"
+        logout="logout"
+      />
+
+      <Flex align="center" justify="center" direction="column" p={4}>
+          <GreetUser user={user} />
+      </Flex>
+
       <Grid
-        templateRows="repeat(6)"
         templateColumns="repeat(12, 1fr)"
         spacing={4}
-        bgGradient="linear(to-b, , #C6803Cff, #8A6543ff, #17190Dff )"
+        
         minH="100vh"
-        minW="100vh"
+        p={4}
       >
-        <GridItem colSpan={12}>
-          <Navigation
-            user={user}
-            setUser={setUser}
-            homepage="home"
-            profile="profile"
-            dashboard="dashboard"
-            logout="logout"
-          />
-        </GridItem>
+        <GridItem colSpan={{ base: 12, lg: 3 }}>
+          <Box
+            align="center"
+            bg="gray.900"
+            border="5px solid"
+            rounded="10px"
+            boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+            style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
+            p={4}
+          >
+            <Text mb="8px">About Me:</Text>
+            <Textarea
+              align="center"
+              value={formData.aboutMe}
+              onChange={handleInputChange}
+              name="aboutMe"
+              placeholder="..."
+              size="sm"
+            />
 
-        <GridItem align="center" rowStart={2} colStart={5} m={4}>
-          <Box h="100%" w="250%" align="center">
-            <GreetUser userName="getLabryinth" />
+            <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900" variant="link">
+              Save
+            </Button>
           </Box>
         </GridItem>
 
-        <GridItem
-          border="5px solid"
-          style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
-          rounded="10px"
-          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
-          colStart={3}
-          colSpan={2}
-          rowStart={4}
-          m={4}
-          align="center"
-        >
-          <Text mb="8px">About Me:</Text>
-          <Textarea
+        <GridItem colSpan={{ base: 12, lg: 3 }}>
+          <Box
             align="center"
-            value={formData.aboutMe || user.aboutMe}
-            onChange={handleInputChange}
-            name="aboutMe"
-            placeholder="..."
-            size="sm"
-          />
-            
-
-          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
-            save
-          </Button>
-        </GridItem>
-
-        <GridItem
-          style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
-          border="5px solid"
-          rounded="10px"
-          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
-          colStart={5}
-          colSpan={1}
-          rowStart={4}
-          m={4}
-          align="center"
-        >
-          <Text mb="8px">Experience: </Text>
-          <Textarea
-            align="center"
-            value={formData.experience || user.experience  }
-            onChange={handleInputChange}
-            name="experience"
-            placeholder="..."
-            size="sm"
-          />
-
-          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
-            save
-          </Button>
-        </GridItem>
-
-        <GridItem
-          border="5px solid"
-          style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
-          rounded="10px"
-          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
-          colStart={7}
-          colSpan={2}
-          rowStart={4}
-          m={4}
-          align="center"
-        >
-          <Text mb="8px">Skills: </Text>
-          <Textarea
-            value={formData.skills || user.skills}
-            onChange={handleInputChange}
-            name="skills"
-            placeholder="..."
-            size="sm"
+            bg="gray.900"
+            border="5px solid"
+            rounded="10px"
+            boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+            style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
             p={4}
-          />
+          >
+            <Text mb="8px">Experience:</Text>
+            <Textarea
+              align="center"
+              value={formData.experience}
+              onChange={handleInputChange}
+              name="experience"
+              placeholder="..."
+              size="sm"
+            />
 
-          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
-            save
-          </Button>
+            <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900" variant="link">
+              Save
+            </Button>
+          </Box>
         </GridItem>
 
-        <GridItem
-          border="5px solid"
-          style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
-          rounded="10px"
-          boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
-          colStart={9}
-          colSpan={2}
-          rowStart={4}
-          m={4}
-          align="center"
-        >
-          <Text mb="8px">Education & License: </Text>
-          <Textarea
-            value={formData.EduAndLic ||user.EduAndLic}
-            onChange={handleInputChange}
-            name="EduAndLic"
-            placeholder="..."
-            size="sm"
-            p={3}
-          />
+        <GridItem colSpan={{ base: 12, lg: 3 }}>
+          <Box
+            align="center"
+            bg="gray.900"
+            border="5px solid"
+            rounded="10px"
+            boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+            style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
+            p={4}
+          >
+            <Text mb="8px">Skills:</Text>
+            <Textarea
+              value={formData.skills}
+              onChange={handleInputChange}
+              name="skills"
+              placeholder="..."
+              size="sm"
+              p={4}
+            />
 
-          <Button onClick={handleSubmit} type='submit' colorScheme="green" variant="link">
-            save
-          </Button>
+            <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900" variant="link">
+              Save
+            </Button>
+          </Box>
+        </GridItem>
+
+        <GridItem colSpan={{ base: 12, lg: 3 }}>
+          <Box
+            align="center"
+            bg="gray.900"
+            border="5px solid"
+            rounded="10px"
+            boxShadow="0 4px 8px 0 rgba(0,0,0,0.5)"
+            style={{ borderColor: theme.colors[100], color: theme.colors[200] }}
+            p={4}
+          >
+            <Text mb="8px">Education & License:</Text>
+            <Textarea
+              value={formData.EduAndLic}
+              onChange={handleInputChange}
+              name="EduAndLic"
+              placeholder="..."
+              size="sm"
+              p={3}
+            />
+
+            <Button onClick={handleSubmit} type="submit" bg={theme.colors[100]} color="gray.900" variant="link">
+              Save
+            </Button>
+          </Box>
         </GridItem>
     
         {/* <FormTemplate /> */}
 
-        <GridItem colStart={5} colSpan={4} rowStart={5} ml={5} p={25}>
+        <GridItem colSpan={{ base: 12, lg: 12 }}>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <defs>
@@ -306,7 +287,7 @@ function UserPage({user, setUser}) {
           </ResponsiveContainer>
         </GridItem>
       </Grid>
-    </>
+    </Box>
   );
 }
 
