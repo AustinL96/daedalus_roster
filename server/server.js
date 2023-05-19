@@ -53,7 +53,7 @@ async function startServer() {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
-  const whitelist = ['https://desolate-wave-03544.herokuapp.com', 'http://localhost:3000'];
+  const whitelist = ['http://localhost:3333', 'https://limitless-inlet-40294.herokuapp.com', 'http://localhost:3000'];
   app.use(
     '/',
     cors({
