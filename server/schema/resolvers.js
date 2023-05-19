@@ -31,7 +31,7 @@ const resolvers = {
       if (!context.user_id)
         return null; // If user_id is not available in the context, return null
       const user = await User.findById(context.user_id); // Find the user by user_id (assuming it's a MongoDB ObjectId)
-      console.log(user);
+
       return user; // Return the retrieved user
     },
     // Resolver for retrieving a single listing
@@ -49,10 +49,13 @@ const resolvers = {
         throw new Error('Failed to fetch listings');
       }
     },
-    getAllListingsByCreator: async (_, { creatorId }) => {
-      console.log("Creator ID:", creatorId);
+    getAllListingsByCreator: async (_, __, { user_id }) => {
+      if (!user_id) throw new GraphQLError('You must be logged in to perform that action');
+
+      console.log("Creator ID:", user_id);
+
       try {
-        const listings = await Listing.find({ creatorId }).populate('appliedUsers');
+        const listings = await Listing.find({ creatorId: user_id }).populate('appliedUsers');
         return listings;
       } catch (error) {
         throw new Error(`Failed to fetch listings by creator: ${error.message}`);
@@ -63,9 +66,9 @@ const resolvers = {
   Mutation: {
     // Resolver for creating a user
     createUser: async (parent, args, context, info) => {
-      console.log(args);
       try {
         const user = await User.create(args); // Create a new user with the provided arguments
+
         const token = signToken(user._id); // Sign a JWT token using the user's ID
         context.res.cookie('token', token, cookieOptions); // Set the token as a cookie in the response with the specified options
         return user; // Return the created user
@@ -79,9 +82,11 @@ const resolvers = {
       const user = await User.findOne({
         email: args.email, // Find a user with the provided email
       });
+
       if (!user)
         throw new GraphQLError('No user found with that email'); // Throw a GraphQLError if no user is found with the provided email
       const validPass = await user.validatePass(args.password); // Validate the provided password
+
       if (!validPass)
         throw new GraphQLError('Passwords do not match'); // Throw a GraphQLError if the passwords do not match
 
@@ -96,8 +101,8 @@ const resolvers = {
     },
     createListing: async (parent, args, context, info) => {
       // Get the ID of the user who created the listing
-      const userId  = context;
-      
+      const userId = context;
+
       // Create the listing with the provided arguments and associate it with the creator's ID
       const listing = await Listing.create({ ...args, creatorId: userId.user_id });
       console.log(listing)
@@ -129,21 +134,21 @@ const resolvers = {
       try {
         // Find the listing by its ID
         const listing = await Listing.findById(listingId);
-    
+
         // Find the user by their ID
         const user = await User.findById(userId);
-    
+
         // Check if the listing or user exists
         if (!listing || !user) {
           throw new Error('Listing or user not found.');
         }
-    
+
         // Add the user to the appliedUsers array
         listing.appliedUsers.push(userId);
-    
+
         // Save the updated listing
         await listing.save();
-    
+
         return 'User applied to the listing successfully.';
       } catch (error) {
         throw new Error(`Failed to apply to listing: ${error.message}`);

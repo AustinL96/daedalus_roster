@@ -33,7 +33,14 @@ const GET_LISTING = gql`
       datePosted
       jobDetails
       jobDescription
-      appliedUser
+      appliedUsers {
+        username
+        email
+        aboutMe
+        experience
+        skills
+        EduAndLic
+      }
     }
   }
 `;
@@ -71,7 +78,7 @@ function App() {
           path="/"
           element={
             user ? (
-              <Navigate to="/profile"   />
+              <Navigate to="/profile" />
             ) : (
               <Register setUser={setUser} />
             )
@@ -87,16 +94,16 @@ function App() {
             )
           }
         />
-        <Route path="/createlisting" element={<CreateListing user={user} setUser={setUser} setListing={setListing}  />} />
+        <Route path="/createlisting" element={<CreateListing user={user} setUser={setUser} setListing={setListing} />} />
         <Route path="/joblistings" element={<JobListings user={user} setUser={setUser} />} />
         <Route path="/myjobs" element={<MyJobs user={user} setUser={setUser} />} />
         <Route path="/login" element={
-            user ? (
-              <Navigate to="/profile" user={user} setUser={setUser} setListing={setListing} />
-            ) : (
-              <Login setUser={setUser} />
-            )
-          } />
+          user ? (
+            <Navigate to="/profile" user={user} setUser={setUser} setListing={setListing} />
+          ) : (
+            <Login setUser={setUser} />
+          )
+        } />
       </Routes>
     </>
   );

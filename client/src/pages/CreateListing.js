@@ -47,7 +47,14 @@ const CREATE_LISTING = gql`
         datePosted
         jobDetails
         jobDescription
-        appliedUser
+        appliedUsers {
+          username
+          email
+          aboutMe
+          experience
+          skills
+          EduAndLic
+        }
       }
     }
 `
@@ -95,7 +102,7 @@ function CreateListing({ setListing, setUser, user }) {
       variables: {
         ...formData,
         creatorId: user._id
-      } 
+      }
     });
 
     setListing(res.data.createListing);
@@ -165,7 +172,7 @@ function CreateListing({ setListing, setUser, user }) {
             <FormControl isRequired>
               <FormLabel>Job Description:</FormLabel>
               <Textarea
-                value={formData.jobDescription} 
+                value={formData.jobDescription}
                 onChange={handleInputChange}
                 type="text"
                 name="jobDescription"
