@@ -17,7 +17,7 @@ type Listing{
     datePosted: String
     jobDetails: String
     jobDescription: String
-    appliedUser: String
+    appliedUsers: [User]
     _id: ID
     creatorId: ID!
 }
@@ -31,8 +31,7 @@ type Query {
   getUser: User 
   getListing(id: ID): Listing
   getAllListing: [Listing]
-
-  getAllListingsByCreator(creatorId: ID!): [Listing]
+  getAllListingsByCreator: [Listing]
 }
 
 type Mutation{
