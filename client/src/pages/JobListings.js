@@ -108,9 +108,6 @@ function JobListings({ user, setUser }) {
                                     <ListItem>
                                         <Heading fontSize="xl">Salary: {listing.salary}</Heading>
                                     </ListItem>
-                                    <ListItem>
-                                        <Heading fontSize="xl">Date Posted: {listing.datePosted}</Heading>
-                                    </ListItem>
                                 </UnorderedList>
                                 <Heading fontSize="lg" mt={4}>
                                     Job Details:
@@ -149,9 +146,6 @@ function JobListings({ user, setUser }) {
                                         </ListItem>
                                         <ListItem>
                                             <Heading fontSize="xl">Salary: {selectedListing.salary}</Heading>
-                                        </ListItem>
-                                        <ListItem>
-                                            <Heading fontSize="xl">Date Posted: {selectedListing.datePosted}</Heading>
                                         </ListItem>
                                     </UnorderedList>
                                     <Heading fontSize="lg" mt={4}>
