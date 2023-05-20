@@ -19,13 +19,13 @@ Daedalus Roster, is a user-friendly job board application designed to connect ta
 - Open your favorite text editor of choice
 - cd to directory then run: 
 `` npm install ``
-- cd to server then run:
+- cd to client then run:
 `` npm install ``
 - cd to server then run:
 `` npm install ``
 
 and enter the following command:
-   `` npm run dev to restart server``
+   `` npm run dev`` to run it locally at localhost:3000.
 
 
 ---
@@ -51,6 +51,8 @@ and enter the following command:
 
 ---
 ## Usage
+
+Visit the deployed website [by clicking here!](https://desolate-wave-03544.herokuapp.com/)
 
 ``` 
 Upon visiting the designated URL, USERS are rendered a Landing page with the ability to create an account and become a member. 
@@ -80,7 +82,7 @@ Additionally, a user-friendly navbar is provided to easily navigate between rout
 
 #### MIT License
 
-Copyright (c) 2023 Ferny Castro
+Copyright (c) 2023 Ferny Castro, Austin Lewis, Ryan Floersch, Robert Palmer
 
 🔗 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
