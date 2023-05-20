@@ -12,12 +12,11 @@ const cookieOptions = {
 
 // Function to sign a JWT token
 function signToken(user_id) {
-  console.log(process.env.JWT_SECRET)
   return sign(
     {
       user_id,
     },
-    'asdfasdflkj', // JWT secret key used for signing the token
+    process.env.JWT_SECRET, // JWT secret key used for signing the token
     {
       expiresIn: '1d', // Token expiration set to 1 day
     }
@@ -46,7 +45,6 @@ const resolvers = {
         const listings = await Listing.find();
         return listings; // Return the listings array
       } catch (error) {
-        console.error(error);
         throw new Error('Failed to fetch listings');
       }
     },

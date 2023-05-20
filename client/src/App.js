@@ -55,17 +55,14 @@ function App() {
   const { data: listData } = useQuery(GET_LISTING);
 
   useEffect(() => {
-    console.log("something");
     if (data) {
-      console.log(data);
       setUser(data.getUser);
     }
   }, [data]);
 
   useEffect(() => {
-    console.log("list something");
+
     if (listData) {
-      console.log(listData);
       setListing(listData.getListing);
     }
   }, [listData]);

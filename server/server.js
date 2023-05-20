@@ -26,20 +26,24 @@ app.use(cookieParser())
 // const api_routes = require('./routes/api_routes');
 
 function decodeToken(token) {
-  return verify(token, process.env.JWT_SECRET)
+  const is_valid = verify(token, process.env.JWT_SECRET);
+
+  console.log('is_valid', is_valid);
+
+  return is_valid;
 }
 
 function authenticate({ req, res }) {
   const token = req.cookies.token;
   if (!token)
-    return { req, res }
+    return { req, res };
 
-  console.log(token)
+  const decoded = decodeToken(token);
 
-  const decoded = decodeToken(token)
   if (!decoded)
-    return { req, res }
-  return { req, res, user_id: decoded.user_id }
+    return { req, res };
+
+  return { req, res, user_id: decoded.user_id };
 }
 
 async function startServer() {
