@@ -34,6 +34,8 @@ function authenticate({ req, res }) {
   if (!token)
     return { req, res }
 
+  console.log(token)
+
   const decoded = decodeToken(token)
   if (!decoded)
     return { req, res }
