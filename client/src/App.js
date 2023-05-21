@@ -55,17 +55,14 @@ function App() {
   const { data: listData } = useQuery(GET_LISTING);
 
   useEffect(() => {
-    console.log("something");
     if (data) {
-      console.log(data);
       setUser(data.getUser);
     }
   }, [data]);
 
   useEffect(() => {
-    console.log("list something");
+
     if (listData) {
-      console.log(listData);
       setListing(listData.getListing);
     }
   }, [listData]);
@@ -94,7 +91,7 @@ function App() {
             )
           }
         />
-        <Route path="/createlisting" element={<CreateListing user={user} setUser={setUser} setListing={setListing} />} />
+        <Route path="/createlisting" element={user ? <CreateListing user={user} setUser={setUser} setListing={setListing} /> : <Navigate to="/login" />} />
         <Route path="/joblistings" element={<JobListings user={user} setUser={setUser} />} />
         <Route path="/myjobs" element={<MyJobs user={user} setUser={setUser} />} />
         <Route path="/login" element={

@@ -45,7 +45,6 @@ const resolvers = {
         const listings = await Listing.find();
         return listings; // Return the listings array
       } catch (error) {
-        console.error(error);
         throw new Error('Failed to fetch listings');
       }
     },

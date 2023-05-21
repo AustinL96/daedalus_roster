@@ -16,7 +16,6 @@ const path = require('path');
 const app = express();
 const httpServer = http.createServer(app);
 
-
 const PORT = process.env.PORT || 3333;
 
 app.use(express.json());
@@ -27,17 +26,24 @@ app.use(cookieParser())
 // const api_routes = require('./routes/api_routes');
 
 function decodeToken(token) {
-  return verify(token, process.env.JWT_SECRET)
+  const is_valid = verify(token, process.env.JWT_SECRET);
+
+  console.log('is_valid', is_valid);
+
+  return is_valid;
 }
 
 function authenticate({ req, res }) {
   const token = req.cookies.token;
   if (!token)
-    return { req, res }
-  const decoded = decodeToken(token)
+    return { req, res };
+
+  const decoded = decodeToken(token);
+
   if (!decoded)
-    return { req, res }
-  return { req, res, user_id: decoded.user_id }
+    return { req, res };
+
+  return { req, res, user_id: decoded.user_id };
 }
 
 async function startServer() {
@@ -53,7 +59,7 @@ async function startServer() {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
-  const whitelist = ['https://desolate-wave-03544.herokuapp.com', 'http://localhost:3000'];
+  const whitelist = ['http://localhost:3333', 'https://limitless-inlet-40294.herokuapp.com', 'http://localhost:3000'];
   app.use(
     '/',
     cors({

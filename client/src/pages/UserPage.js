@@ -45,7 +45,7 @@ const UPDATE_USER = gql`
   }
 `
 
-function UserPage({user, setUser}) {
+function UserPage({ user, setUser }) {
 
   const data = [
     { name: "Submitted", value: Math.floor(Math.random() * 5) },
@@ -61,14 +61,14 @@ function UserPage({user, setUser}) {
   const labelColor = theme.colors[500];
 
   // let [value, setValue] = React.useState("");
-
+  console.log(user);
   const [formData, setFormData] = useState({
-    userName:user.userName,
-    email: user.email,
-    aboutMe: user.aboutMe  ,
-    experience: user.experience,
-    skills: user.skills ,
-    EduAndLic: user.EduAndLic ,
+    userName: user.userName || '',
+    email: user.email || '',
+    aboutMe: user.aboutMe || '',
+    experience: user.experience || '',
+    skills: user.skills || '',
+    EduAndLic: user.EduAndLic || '',
   });
 
 
@@ -91,19 +91,19 @@ function UserPage({user, setUser}) {
 
 
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const res = await updateUser({
       variables: formData
     });
     setUser(res.data.updateUser)
     setFormData({
-      aboutMe: res.data.updateUser.aboutMe , // Update with the saved value
-      experience:  res.data.updateUser.experience  , // Update with the saved value
-      skills:  res.data.updateUser.skills, // Update with the saved value
-      EduAndLic:  res.data.updateUser.EduAndLic, // Update with the saved value
+      aboutMe: res.data.updateUser.aboutMe, // Update with the saved value
+      experience: res.data.updateUser.experience, // Update with the saved value
+      skills: res.data.updateUser.skills, // Update with the saved value
+      EduAndLic: res.data.updateUser.EduAndLic, // Update with the saved value
     })
-    
+
   }
 
 
@@ -119,13 +119,13 @@ function UserPage({user, setUser}) {
       />
 
       <Flex align="center" justify="center" direction="column" p={4}>
-          <GreetUser user={user} />
+        <GreetUser user={user} />
       </Flex>
 
       <Grid
         templateColumns="repeat(12, 1fr)"
         spacing={4}
-        
+
         minH="100vh"
         p={4}
       >
@@ -232,7 +232,7 @@ function UserPage({user, setUser}) {
             </Button>
           </Box>
         </GridItem>
-    
+
         {/* <FormTemplate /> */}
 
         <GridItem colSpan={{ base: 12, lg: 12 }}>
@@ -243,8 +243,7 @@ function UserPage({user, setUser}) {
                   id="shadow"
                   x="-20%"
                   y="-20%"
-                  width="auto"
-                  height="auto"
+                  length="auto"
                 >
                   <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
                   <feOffset dx="2" dy="2" result="offsetblur" />
@@ -284,7 +283,7 @@ function UserPage({user, setUser}) {
             </PieChart>
 
 
-        
+
           </ResponsiveContainer>
         </GridItem>
       </Grid>
